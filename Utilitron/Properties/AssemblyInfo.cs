@@ -38,4 +38,4 @@ using System.Runtime.InteropServices;
 
 // This version number will roughly follow semantic versioning : http://semver.org
 // The first three numbers will always match the first the numbers of the version above.
-[assembly: AssemblyInformationalVersion("1.0.0-alpha12")]
+[assembly: AssemblyInformationalVersion("1.0.0-alpha2")]
