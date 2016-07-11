@@ -43,6 +43,8 @@
     <Compile Include="Data\IRepositoryConfiguration.cs" />
     <Compile Include="Data\Model.cs" />
     <Compile Include="Data\Repository.cs" />
+    <Compile Include="Linq\EnumerableExtensions.cs" />
+    <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
