@@ -348,7 +348,7 @@ namespace Utilitron.IO
 
         public override void WriteLine(string value)
         {
-            WriteLineAsync(value);
+            WriteLineAsync(value).Wait();
         }
 
         public override void WriteLine(string format, object arg0)
