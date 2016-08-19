@@ -41,6 +41,7 @@
     <Compile Include="Data\Model.cs" />
     <Compile Include="Data\Repository.cs" />
     <Compile Include="IO\DistributingTextWriter.cs" />
+    <Compile Include="IO\TextWriterExtensions.cs" />
     <Compile Include="Linq\EnumerableExtensions.cs" />
     <Compile Include="Linq\LookupExtensions.cs" />
     <Compile Include="ObjectExtensions.cs" />
