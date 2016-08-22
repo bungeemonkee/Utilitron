@@ -43,7 +43,9 @@
     <Compile Include="IO\DistributingTextWriter.cs" />
     <Compile Include="IO\TextWriterExtensions.cs" />
     <Compile Include="Linq\EnumerableExtensions.cs" />
+    <Compile Include="Linq\IMutableLookup.cs" />
     <Compile Include="Linq\LookupExtensions.cs" />
+    <Compile Include="Linq\MutableLookup.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringExtensions.cs" />
