@@ -16,8 +16,6 @@ namespace Utilitron.Data
     {
         private static readonly ConcurrentDictionary<string, string> Queries = new ConcurrentDictionary<string, string>();
 
-        private readonly string _queryEmbedLocationFormat;
-
         /// <summary>
         ///     The <see cref="IRepositoryConfiguration" /> for this repository.
         /// </summary>
@@ -30,20 +28,32 @@ namespace Utilitron.Data
         protected Repository(IRepositoryConfiguration configuration)
         {
             Configuration = configuration;
-
-            var type = GetType();
-            _queryEmbedLocationFormat = $"{type.FullName}Queries.{{0}}.sql";
         }
 
         /// <summary>
-        ///     Get an open connection to the database.
+        ///     Get and open a connection to the database synchronously.
+        /// </summary>
+        /// <remarks>
+        ///     Internally calls <see cref="GetConnectionAsync()"/> and waits for the result.
+        /// </remarks>
+        /// <returns>An <see cref="IDbConnection" /> representing an open connection to the database.</returns>
+        protected IDbConnection GetConnection()
+        {
+            return GetConnectionAsync().Result;
+        }
+
+        /// <summary>
+        ///     Get and open a connection to the database asynchronously.
         /// </summary>
         /// <returns>An <see cref="IDbConnection" /> representing an open connection to the database.</returns>
         protected virtual async Task<IDbConnection> GetConnectionAsync()
         {
             var connection = new SqlConnection(Configuration.RepositoryConnectionString);
 
-            try { await connection.OpenAsync(); }
+            try
+            {
+                await connection.OpenAsync();
+            }
             catch (Exception)
             {
                 connection.Dispose();
@@ -108,18 +118,41 @@ namespace Utilitron.Data
         /// <returns>The query text.</returns>
         protected string GetQuery([CallerMemberName] string queryName = null)
         {
-            queryName = string.Format(_queryEmbedLocationFormat, queryName);
+            if (queryName == null)
+            {
+                throw new ArgumentNullException(nameof(queryName));
+            }
+
             return Queries.GetOrAdd(queryName, GetQueryInternal);
         }
 
         private string GetQueryInternal(string queryName)
         {
-            var assembly = GetType().Assembly;
+            // Get the current type
+            var type = GetType();
+
+            // Get the member that matches this query
+            var member = type.GetMethod(queryName);
+
+            // Use the type that actually declared the member or the current type if it is not available
+            type = member?.DeclaringType ?? type;
+
+            // Add the type name (and 'Queries') to the query name
+            queryName = $"{type.FullName}Queries.{queryName}.sql";
+
+            // Get the embedded resource from the assembly
+            var assembly = type.Assembly;
             using (var resource = assembly.GetManifestResourceStream(queryName))
             {
-                if (resource == null) { throw new InvalidOperationException($"No embedded query for {queryName}."); }
+                if (resource == null)
+                {
+                    throw new InvalidOperationException($"No embedded query for {queryName}.");
+                }
 
-                using (var text = new StreamReader(resource, Encoding.UTF8, true)) { return text.ReadToEnd(); }
+                using (var text = new StreamReader(resource, Encoding.UTF8, true))
+                {
+                    return text.ReadToEnd();
+                }
             }
         }
     }
