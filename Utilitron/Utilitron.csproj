@@ -42,6 +42,9 @@
     <Compile Include="Data\IRepositoryConfiguration.cs" />
     <Compile Include="Data\Model.cs" />
     <Compile Include="Data\Repository.cs" />
+    <Compile Include="Functional\Union`3.cs" />
+    <Compile Include="Functional\Union`2.cs" />
+    <Compile Include="Functional\UnionItem.cs" />
     <Compile Include="IO\DistributingTextWriter.cs" />
     <Compile Include="IO\TextWriterExtensions.cs" />
     <Compile Include="Linq\EnumerableExtensions.cs" />

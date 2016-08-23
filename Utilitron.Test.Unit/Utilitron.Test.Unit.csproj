@@ -47,6 +47,8 @@
     <Compile Include="Data\RepositoryAncestor1.cs" />
     <Compile Include="Data\RepositoryAncestor2.cs" />
     <Compile Include="Data\RepositoryTests.cs" />
+    <Compile Include="Functional\Union3Tests.cs" />
+    <Compile Include="Functional\Union2Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
