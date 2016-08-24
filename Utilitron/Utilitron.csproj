@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="Collections\Generic\DictionaryExtensions.cs" />
     <Compile Include="Collections\Generic\EnumerableExtensions.cs" />
+    <Compile Include="Data\DictionaryExtensions.cs" />
     <Compile Include="Data\IRepositoryConfiguration.cs" />
     <Compile Include="Data\Model.cs" />
     <Compile Include="Data\Repository.cs" />
