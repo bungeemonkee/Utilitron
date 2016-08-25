@@ -49,8 +49,11 @@
     <Compile Include="IO\DistributingTextWriter.cs" />
     <Compile Include="IO\TextWriterExtensions.cs" />
     <Compile Include="Linq\EnumerableExtensions.cs" />
+    <Compile Include="Linq\IDistinctGrouping.cs" />
+    <Compile Include="Linq\IDistinctLookup.cs" />
     <Compile Include="Linq\IMutableLookup.cs" />
     <Compile Include="Linq\LookupExtensions.cs" />
+    <Compile Include="Linq\DistinctLookup.cs" />
     <Compile Include="Linq\MutableLookup.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
