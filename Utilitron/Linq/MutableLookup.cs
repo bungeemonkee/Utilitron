@@ -9,7 +9,7 @@ namespace Utilitron.Linq
     /// </summary>
     public class MutableLookup<TKey, TValue> : IMutableLookup<TKey, TValue>
     {
-        private readonly IDictionary<TKey, IGrouping<TKey, TValue>> _values;
+        private readonly IDictionary<TKey, MutableGrouping> _values;
 
         /// <summary>
         ///     See <see cref="ILookup{TKey,TElement}.Count" />.
@@ -22,18 +22,18 @@ namespace Utilitron.Linq
         public IEnumerable<TValue> this[TKey key] => _values[key];
 
         /// <summary>
-        ///     Create a new MutableLookup with a default <see cref="EqualityComparer{T}" />.
+        ///     Create a new MutableLookup with a default <see cref="EqualityComparer{TKey}" />.
         /// </summary>
         public MutableLookup()
             : this(EqualityComparer<TKey>.Default) { }
 
         /// <summary>
-        ///     Create a new MutableLookup with the given <see cref="EqualityComparer{T}" />.
+        ///     Create a new MutableLookup with the given <see cref="EqualityComparer{TKey}" />.
         /// </summary>
         /// <param name="keyComparer"></param>
         public MutableLookup(IEqualityComparer<TKey> keyComparer)
         {
-            _values = new Dictionary<TKey, IGrouping<TKey, TValue>>(keyComparer);
+            _values = new Dictionary<TKey, MutableGrouping>(keyComparer);
         }
 
         /// <summary>
@@ -41,13 +41,13 @@ namespace Utilitron.Linq
         /// </summary>
         public void Add(TKey key, TValue value)
         {
-            IGrouping<TKey, TValue> group;
+            MutableGrouping group;
             if (!_values.TryGetValue(key, out group))
             {
                 group = new MutableGrouping(key);
                 _values[key] = group;
             }
-            ((MutableGrouping)group).Add(value);
+            group.Add(value);
         }
 
         /// <summary>
@@ -63,12 +63,12 @@ namespace Utilitron.Linq
         /// </summary>
         public IEnumerator<IGrouping<TKey, TValue>> GetEnumerator()
         {
-            return _values.Values.GetEnumerator();
+            return _values.Values.Cast<IGrouping<TKey, TValue>>().GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _values.Values.GetEnumerator();
+            return GetEnumerator();
         }
 
         private struct MutableGrouping : IGrouping<TKey, TValue>
