@@ -25,16 +25,16 @@ namespace Utilitron.Test.Unit.Collections.Generic
         }
 
         [TestMethod]
-        public void Partition_With_Non_List()
+        public void Partition_List()
         {
-            Enumerable.Repeat(1, 10).Partition(5);
+            var input = new[] {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+            input.Partition(5);
         }
 
         [TestMethod]
-        public void Partition_List()
+        public void Partition_With_Non_List()
         {
-            var input = new[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, };
-            input.Partition(5);
+            Enumerable.Repeat(1, 10).Partition(5);
         }
     }
 }

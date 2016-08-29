@@ -2,12 +2,15 @@
 
 namespace Utilitron
 {
+    /// <summary>
+    ///     Extensions for all strings.
+    /// </summary>
     public static class StringExtensions
     {
-        private static readonly string[] Newlines = { "\r\n", "\n" };
+        private static readonly string[] Newlines = {"\r\n", "\n"};
 
         /// <summary>
-        /// Gets just the first line of a string (after any empty lines).
+        ///     Gets just the first line of a string (after any empty lines).
         /// </summary>
         public static string GetFirstLine(this string text)
         {

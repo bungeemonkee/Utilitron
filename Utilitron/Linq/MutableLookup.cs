@@ -25,7 +25,9 @@ namespace Utilitron.Linq
         ///     Create a new MutableLookup with a default <see cref="EqualityComparer{TKey}" />.
         /// </summary>
         public MutableLookup()
-            : this(EqualityComparer<TKey>.Default) { }
+            : this(EqualityComparer<TKey>.Default)
+        {
+        }
 
         /// <summary>
         ///     Create a new MutableLookup with the given <see cref="EqualityComparer{TKey}" />.

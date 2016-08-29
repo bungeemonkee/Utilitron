@@ -3,12 +3,12 @@
 namespace Utilitron.Data
 {
     /// <summary>
-    /// Extensions for dictionaries that operate on models.
+    ///     Extensions for dictionaries that operate on models.
     /// </summary>
     public static class DictionaryExtensions
     {
         /// <summary>
-        /// Add a model to a dictionary or return the equivalent reference to the model from the dictionary.
+        ///     Add a model to a dictionary or return the equivalent reference to the model from the dictionary.
         /// </summary>
         /// <typeparam name="TIdentifier">The model's identifier type.</typeparam>
         /// <typeparam name="TModel">The model type.</typeparam>
