@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Utilitron.Linq
 {
@@ -8,7 +7,7 @@ namespace Utilitron.Linq
     /// </summary>
     /// <typeparam name="TKey">The type of the keys.</typeparam>
     /// <typeparam name="TValue">The type of the values.</typeparam>
-    public interface IMutableLookup<TKey, TValue>: ILookup<TKey, TValue>
+    public interface IMutableLookup<TKey, TValue> : ILookup<TKey, TValue>
     {
         /// <summary>
         ///     Adds a new value to the IMutableLookup for the given key.

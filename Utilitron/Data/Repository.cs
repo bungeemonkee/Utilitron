@@ -31,10 +31,58 @@ namespace Utilitron.Data
         }
 
         /// <summary>
+        ///     Execute a function using a connection.
+        /// </summary>
+        /// <typeparam name="T">The return type.</typeparam>
+        /// <param name="function">The function to execute.</param>
+        /// <returns>The result of the fucntion.</returns>
+        protected async Task<T> ExecuteAsync<T>(Func<IDbConnection, Task<T>> function)
+        {
+            using (var connection = await GetConnectionAsync())
+            {
+                return await function(connection);
+            }
+        }
+
+        /// <summary>
+        ///     Execute a function using a connection, and transaction.
+        /// </summary>
+        /// <typeparam name="T">The return type.</typeparam>
+        /// <param name="function">The function to execute.</param>
+        /// <returns>The result of the fucntion.</returns>
+        protected async Task<T> ExecuteAsync<T>(Func<IDbConnection, IDbTransaction, Task<T>> function)
+        {
+            using (var connection = await GetConnectionAsync())
+            using (var transaction = connection.BeginTransaction(Configuration.TransactionIsolationLevel))
+            {
+                return await function(connection, transaction);
+            }
+        }
+
+        /// <summary>
+        ///     Execute a function using a connection, transaction, and command.
+        /// </summary>
+        /// <typeparam name="T">The return type.</typeparam>
+        /// <param name="function">The function to execute.</param>
+        /// <returns>The result of the fucntion.</returns>
+        protected async Task<T> ExecuteAsync<T>(Func<IDbConnection, IDbTransaction, IDbCommand, Task<T>> function)
+        {
+            using (var connection = await GetConnectionAsync())
+            using (var transaction = connection.BeginTransaction(Configuration.TransactionIsolationLevel))
+            using (var command = connection.CreateCommand())
+            {
+                command.Transaction = transaction;
+                command.CommandTimeout = Configuration.DefaultCommandTimeoutSeconds;
+
+                return await function(connection, transaction, command);
+            }
+        }
+
+        /// <summary>
         ///     Get and open a connection to the database synchronously.
         /// </summary>
         /// <remarks>
-        ///     Internally calls <see cref="GetConnectionAsync()"/> and waits for the result.
+        ///     Internally calls <see cref="GetConnectionAsync()" /> and waits for the result.
         /// </remarks>
         /// <returns>An <see cref="IDbConnection" /> representing an open connection to the database.</returns>
         protected IDbConnection GetConnection()
@@ -61,54 +109,6 @@ namespace Utilitron.Data
             }
 
             return connection;
-        }
-
-        /// <summary>
-        /// Execute a function using a connection.
-        /// </summary>
-        /// <typeparam name="T">The return type.</typeparam>
-        /// <param name="function">The function to execute.</param>
-        /// <returns>The result of the fucntion.</returns>
-        protected async Task<T> ExecuteAsync<T>(Func<IDbConnection, Task<T>> function)
-        {
-            using (var connection = await GetConnectionAsync())
-            {
-                return await function(connection);
-            }
-        }
-
-        /// <summary>
-        /// Execute a function using a connection, and transaction.
-        /// </summary>
-        /// <typeparam name="T">The return type.</typeparam>
-        /// <param name="function">The function to execute.</param>
-        /// <returns>The result of the fucntion.</returns>
-        protected async Task<T> ExecuteAsync<T>(Func<IDbConnection, IDbTransaction, Task<T>> function)
-        {
-            using (var connection = await GetConnectionAsync())
-            using (var transaction = connection.BeginTransaction(Configuration.TransactionIsolationLevel))
-            {
-                return await function(connection, transaction);
-            }
-        }
-
-        /// <summary>
-        /// Execute a function using a connection, transaction, and command.
-        /// </summary>
-        /// <typeparam name="T">The return type.</typeparam>
-        /// <param name="function">The function to execute.</param>
-        /// <returns>The result of the fucntion.</returns>
-        protected async Task<T> ExecuteAsync<T>(Func<IDbConnection, IDbTransaction, IDbCommand, Task<T>> function)
-        {
-            using (var connection = await GetConnectionAsync())
-            using (var transaction = connection.BeginTransaction(Configuration.TransactionIsolationLevel))
-            using (var command = connection.CreateCommand())
-            {
-                command.Transaction = transaction;
-                command.CommandTimeout = Configuration.DefaultCommandTimeoutSeconds;
-
-                return await function(connection, transaction, command);
-            }
         }
 
         /// <summary>

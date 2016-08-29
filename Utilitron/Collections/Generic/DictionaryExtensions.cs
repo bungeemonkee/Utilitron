@@ -18,7 +18,10 @@ namespace Utilitron.Collections.Generic
         /// <returns>The value for the given key or the default value for that type if the key is not found.</returns>
         public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
         {
-            if (dictionary == null) { throw new ArgumentNullException(nameof(dictionary)); }
+            if (dictionary == null)
+            {
+                throw new ArgumentNullException(nameof(dictionary));
+            }
 
             TValue value;
             return dictionary.TryGetValue(key, out value)

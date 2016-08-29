@@ -5,13 +5,13 @@ using System.Collections.Generic;
 namespace Utilitron.Collections.Generic
 {
     /// <summary>
-    /// Generic enumerable extensions.
+    ///     Generic enumerable extensions.
     /// </summary>
     public static class EnumerableExtensions
     {
         /// <summary>
-        /// Partition an enumerable into the given number of segments.
-        /// Order of input items is not preserved across segments.
+        ///     Partition an enumerable into the given number of segments.
+        ///     Order of input items is not preserved across segments.
         /// </summary>
         /// <typeparam name="T">The type of the items in the </typeparam>
         /// <param name="source">The initial item source.</param>
@@ -33,7 +33,7 @@ namespace Utilitron.Collections.Generic
 
             // Initialize the internal lists to a reasonable default
             var total = (source as ICollection)?.Count ?? partitions;
-            var length = (total / partitions) + (total % partitions != 0 ? 1 : 0);
+            var length = total/partitions + (total%partitions != 0 ? 1 : 0);
             for (var i = 0; i < partitions; ++i)
             {
                 output.Add(new List<T>(length));
@@ -44,7 +44,7 @@ namespace Utilitron.Collections.Generic
             {
                 for (var i = 0; enumerable.MoveNext(); ++i)
                 {
-                    ((IList<T>)output[i % partitions]).Add(enumerable.Current);
+                    ((IList<T>) output[i%partitions]).Add(enumerable.Current);
                 }
             }
 
