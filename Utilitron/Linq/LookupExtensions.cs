@@ -44,6 +44,53 @@ namespace Utilitron.Linq
         }
 
         /// <summary>
+        ///     Get a value from a lookup.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the keys in the lookup.</typeparam>
+        /// <typeparam name="TValue">The type of the values in the lookup.</typeparam>
+        /// <param name="lookup">The lookup to search for the key in.</param>
+        /// <param name="key">The key to look for in the lookup.</param>
+        /// <returns>The values for the given key.</returns>
+        public static IEnumerable<TValue> Get<TKey, TValue>(this ILookup<TKey, TValue> lookup, TKey key)
+        {
+            return lookup[key];
+        }
+
+        /// <summary>
+        ///     Get a value from a lookup that uses 2-item tuples as keys.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of the first key in the lookup.</typeparam>
+        /// <typeparam name="TKey2">The type of the second key in the lookup.</typeparam>
+        /// <typeparam name="TValue">The type of the values in the lookup.</typeparam>
+        /// <param name="lookup">The lookup to search for the key in.</param>
+        /// <param name="key1">The first key to look for in the lookup.</param>
+        /// <param name="key2">The second key to look for in the lookup.</param>
+        /// <returns>The values for the given key.</returns>
+        public static IEnumerable<TValue> Get<TKey1, TKey2, TValue>(this ILookup<Tuple<TKey1, TKey2>, TValue> lookup, TKey1 key1, TKey2 key2)
+        {
+            var key = new Tuple<TKey1, TKey2>(key1, key2);
+            return lookup[key];
+        }
+
+        /// <summary>
+        ///     Get a value from a lookup that uses 3-item tuples as keys.
+        /// </summary>
+        /// <typeparam name="TKey1">The type of the first key in the lookup.</typeparam>
+        /// <typeparam name="TKey2">The type of the second key in the lookup.</typeparam>
+        /// <typeparam name="TKey3">The type of the third key in the lookup.</typeparam>
+        /// <typeparam name="TValue">The type of the values in the lookup.</typeparam>
+        /// <param name="lookup">The lookup to search for the key in.</param>
+        /// <param name="key1">The first key to look for in the lookup.</param>
+        /// <param name="key2">The second key to look for in the lookup.</param>
+        /// <param name="key3">The third key to look for in the lookup.</param>
+        /// <returns>The values for the given key.</returns>
+        public static IEnumerable<TValue> Get<TKey1, TKey2, TKey3, TValue>(this ILookup<Tuple<TKey1, TKey2, TKey3>, TValue> lookup, TKey1 key1, TKey2 key2, TKey3 key3)
+        {
+            var key = new Tuple<TKey1, TKey2, TKey3>(key1, key2, key3);
+            return lookup[key];
+        }
+
+        /// <summary>
         ///     Gets a value from a lookup or the default value if the given key does not exist in the lookup.
         /// </summary>
         /// <typeparam name="TKey">The lookup key type.</typeparam>
