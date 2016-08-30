@@ -13,23 +13,16 @@ namespace Utilitron.Data
     {
         private static readonly TIdentifier IdentifierDefault = default(TIdentifier);
 
-        private readonly bool _isTypeCheked;
-
         /// <summary>
         ///     Creates a new instance of the Model and ensures that it inherits from TModel.
         /// </summary>
         protected Model()
         {
-            if (_isTypeCheked) return;
+            if (this is TModel) return;
 
-            if (!(this is TModel))
-            {
-                var type = GetType().FullName;
-                var model = typeof(TModel).FullName;
-                throw new InvalidOperationException($"{type} must inherit from {model}");
-            }
-
-            _isTypeCheked = true;
+            var type = GetType().FullName;
+            var model = typeof(TModel).FullName;
+            throw new InvalidOperationException($"'{type}' must inherit from '{model}'. Specify '{type}' as the 'TModel' parameter of 'Model<TIdentifier, TModel>'.");
         }
 
         /// <summary>
