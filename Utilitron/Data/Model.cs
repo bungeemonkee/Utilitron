@@ -36,23 +36,42 @@ namespace Utilitron.Data
         ///     Overrides <see cref="object.Equals(object)" /> to determine equality using the
         ///     <see cref="Model{TIdentifier,TModel}.GetIdentifier()" /> method.
         /// </summary>
+        /// <remarks>
+        ///     Equality is determined according to the following rules.
+        ///     <list type="number">
+        ///         <listheader>
+        ///             These are my "3 Laws of Identifier Equality".
+        ///         </listheader>
+        ///         <item>
+        ///             A model must always be equal to itself (the same pointer/reference) and models must be of the same type to be equal.
+        ///         </item>
+        ///         <item>
+        ///             A model's identifier must not be equal to its identifier type's default value to be equal to another model, except
+        ///             in cases where this would violate the first law.
+        ///         </item>
+        ///         <item>
+        ///             A model's identifier must be equal to another model's identifier for thoe models to be equal, except in cases where this would violate
+        ///             the first or second laws.
+        ///         </item>
+        ///     </list>
+        /// </remarks>
         public override bool Equals(object obj)
         {
-            // If they are the same reference they are always equal
+            // If they are the same reference they are always equal (Law #1)
             // ReSharper disable once BaseObjectEqualsIsObjectEquals
             if (base.Equals(obj)) return true;
 
-            // if the other object is not this type they cannot be equal
+            // If the other object is not this type they cannot be equal (Law #1)
             var other = obj as TModel;
             if (other == null) return false;
 
-            // If either id is 0 they are to be considered unequal (unless they are the same reference)
+            // If either id is 0 they are to be considered unequal (unless they are the same reference) (Law #2)
             // This is because no db-generated id should be 0.
-            // Which means that the two models are as yet unsaved.
-            // So we consider them unequal because when they are each saved they will have different ids.
+            // Which means that at least one of the two models is as yet unsaved.
+            // So we consider them unequal because when saved they will have different ids.
             if (GetIdentifier().Equals(IdentifierDefault) || other.GetIdentifier().Equals(IdentifierDefault)) return false;
 
-            // They are equal if their ids are equal
+            // They are equal if their ids are equal (Law #3)
             return GetIdentifier().Equals(other.GetIdentifier());
         }
 
