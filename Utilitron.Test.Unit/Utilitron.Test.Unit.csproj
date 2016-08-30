@@ -44,9 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\Generic\EnumerableExtensionsTests.cs" />
+    <Compile Include="Data\InvalidModelType.cs" />
+    <Compile Include="Data\ModelTests.cs" />
     <Compile Include="Data\RepositoryAncestor1.cs" />
     <Compile Include="Data\RepositoryAncestor2.cs" />
     <Compile Include="Data\RepositoryTests.cs" />
+    <Compile Include="Data\ValidModelType.cs" />
     <Compile Include="Functional\Union3Tests.cs" />
     <Compile Include="Functional\Union2Tests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
