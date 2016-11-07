@@ -10,7 +10,7 @@ namespace Utilitron.Linq
     public static class LookupExtensions
     {
         /// <summary>
-        ///     Determines if a 3-item tupple exists in a lookup as its key.
+        ///     Determines if a 3-item tuple exists in a lookup as its key.
         /// </summary>
         /// <typeparam name="TKey1">The lookup first key type.</typeparam>
         /// <typeparam name="TKey2">The lookup second key type.</typeparam>
@@ -26,7 +26,7 @@ namespace Utilitron.Linq
         }
 
         /// <summary>
-        ///     Determines if a 3-item tupple exists in a lookup as its key.
+        ///     Determines if a 3-item tuple exists in a lookup as its key.
         /// </summary>
         /// <typeparam name="TKey1">The lookup first key type.</typeparam>
         /// <typeparam name="TKey2">The lookup second key type.</typeparam>
