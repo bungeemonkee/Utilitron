@@ -18,7 +18,7 @@ namespace Utilitron.Linq
         /// <returns>A new enumerable that includes the source and the added item.</returns>
         public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T item)
         {
-            return source.Concat(item.AsEnumerable());
+            return source.Concat(item.InEnumerable());
         }
 
         /// <summary>
