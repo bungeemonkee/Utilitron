@@ -209,5 +209,63 @@ namespace Utilitron.Linq
 
             return new CountWithTotal(count, total);
         }
+
+        /// <summary>
+        ///     Gets the minimum and maximum value of a property from an enumerable at the same time.
+        /// </summary>
+        /// <typeparam name="TItem">The type of the items in the enumerable.</typeparam>
+        /// <typeparam name="TMinMax">The type of the property to compare.</typeparam>
+        /// <param name="source">The enumerable of input items.</param>
+        /// <param name="selector">The function that defines the property to compare.</param>
+        /// <returns>A <see cref="MinMax{T}" />With the minimum and maximum values of the property for the items.</returns>
+        public static MinMax<TMinMax> MinMax<TItem, TMinMax>(this IEnumerable<TItem> source, Func<TItem, TMinMax> selector)
+        {
+            return MinMax(source, selector, Comparer<TMinMax>.Default);
+        }
+
+        /// <summary>
+        ///     Gets the minimum and maximum value of a property from an enumerable at the same time.
+        /// </summary>
+        /// <typeparam name="TItem">The type of the items in the enumerable.</typeparam>
+        /// <typeparam name="TMinMax">The type of the property to compare.</typeparam>
+        /// <param name="source">The enumerable of input items.</param>
+        /// <param name="selector">The function that defines the property to compare.</param>
+        /// <param name="comparer">The comparer to use to determine the minimum and maximum values.</param>
+        /// <returns>A <see cref="MinMax{T}" />With the minimum and maximum values of the property for the items.</returns>
+        public static MinMax<TMinMax> MinMax<TItem, TMinMax>(this IEnumerable<TItem> source, Func<TItem, TMinMax> selector, IComparer<TMinMax> comparer)
+        {
+            if (source == null) { throw new ArgumentNullException(nameof(source)); }
+
+            if (selector == null) { throw new ArgumentNullException(nameof(selector)); }
+
+            if (comparer == null) { throw new ArgumentNullException(nameof(comparer)); }
+
+            var min = default(TMinMax);
+            var max = default(TMinMax);
+
+            var first = true;
+            foreach (var item in source)
+            {
+                var val = selector(item);
+
+                if (first)
+                {
+                    min = val;
+                    max = val;
+                    first = false;
+                }
+                else
+                {
+                    if (comparer.Compare(min, val) > 0) { min = val; }
+
+                    if (comparer.Compare(max, val) < 0) { max = val; }
+                }
+            }
+
+            // If we never got past the first element then there is nothing in the source
+            if (first) { throw new InvalidOperationException("Sequence contains no elements."); }
+
+            return new MinMax<TMinMax>(min, max);
+        }
     }
 }

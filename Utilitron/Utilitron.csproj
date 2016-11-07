@@ -58,6 +58,7 @@
     <Compile Include="Linq\IMutableLookup.cs" />
     <Compile Include="Linq\LookupExtensions.cs" />
     <Compile Include="Linq\DistinctLookup.cs" />
+    <Compile Include="Linq\MinMax.cs" />
     <Compile Include="Linq\MutableLookup.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
