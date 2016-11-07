@@ -1,5 +1,5 @@
 ﻿
-namespace Utilitron.Linq
+namespace Utilitron.Collections.Generic
 {
     /// <summary>
     ///     A count of elements matching a condition that includes a count of the total elements checked against the condition.
