@@ -10,12 +10,12 @@ namespace Utilitron.Linq
     public static class EnumerableExtensions
     {
         /// <summary>
-        ///     Adds a single item to an enumerable.
+        ///     Adds a single item to the end of an enumerable.
         /// </summary>
         /// <typeparam name="T">The type of the item to add.</typeparam>
         /// <param name="source">The source enumerable.</param>
         /// <param name="item">The item to add to the enumerable.</param>
-        /// <returns>A new enumerable that includes the source and the added item.</returns>
+        /// <returns>A new enumerable that includes the source followed by the added item.</returns>
         public static IEnumerable<T> Concat<T>(this IEnumerable<T> source, T item)
         {
             return source.Concat(item.InEnumerable());
