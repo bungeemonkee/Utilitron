@@ -51,6 +51,7 @@
     <Compile Include="Functional\UnionItem.cs" />
     <Compile Include="IO\DistributingTextWriter.cs" />
     <Compile Include="IO\TextWriterExtensions.cs" />
+    <Compile Include="Linq\CountWithTotal.cs" />
     <Compile Include="Linq\EnumerableExtensions.cs" />
     <Compile Include="Linq\IDistinctGrouping.cs" />
     <Compile Include="Linq\IDistinctLookup.cs" />

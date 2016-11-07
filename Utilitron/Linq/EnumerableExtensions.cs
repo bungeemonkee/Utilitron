@@ -183,5 +183,31 @@ namespace Utilitron.Linq
 
             return result;
         }
+
+        /// <summary>
+        ///     Produces a count of items in the source that match a given condition along with the total number of items checked.
+        /// </summary>
+        /// <typeparam name="TItem">The type of the items in the source.</typeparam>
+        /// <param name="source">The <see cref="IEnumerable{T}" /> of items to count.</param>
+        /// <param name="predicate">The predicate used to determine which items to count.</param>
+        /// <returns>A <see cref="CountWithTotal" /> containing the total matching items and the total number of items checked.</returns>
+        public static CountWithTotal CountWithTotal<TItem>(this IEnumerable<TItem> source, Predicate<TItem> predicate)
+        {
+            if (source == null) { throw new ArgumentNullException(nameof(source)); }
+
+            if (predicate == null) { throw new ArgumentNullException(nameof(predicate)); }
+
+            var count = 0;
+            var total = 0;
+
+            foreach (var item in source)
+            {
+                ++total;
+                if (!predicate(item)) continue;
+                ++count;
+            }
+
+            return new CountWithTotal(count, total);
+        }
     }
 }
