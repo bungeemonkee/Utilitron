@@ -1,5 +1,5 @@
 ﻿
-namespace Utilitron.Linq
+namespace Utilitron.Collections.Generic
 {
     /// <summary>
     ///     Represents a minimum and maximum value of a type.
