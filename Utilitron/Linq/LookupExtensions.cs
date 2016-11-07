@@ -142,5 +142,20 @@ namespace Utilitron.Linq
                 ? lookup[key]
                 : null;
         }
+
+        /// <summary>
+        ///     Converts an <see cref="ILookup{TKey,TElement}" /> to an <see cref="IDictionary{TKey,TValue}" /> by swapping the
+        ///     values and the keys.
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="lookup">The <see cref="ILookup{TKey,TElement}" /> to convert to an <see cref="IDictionary{TKey,TValue}" />.</param>
+        /// <returns>An <see cref="IDictionary{TKey,TValue}" /> created by swapping the keys and values from an <see cref="ILookup{TKey,TElement}" />.</returns>
+        public static IDictionary<TValue, TKey> ToDictionary<TKey, TValue>(this ILookup<TKey, TValue> lookup)
+        {
+            return lookup
+                .SelectMany(x => x, (x, y) => new KeyValuePair<TKey, TValue>(x.Key, y))
+                .ToDictionary(x => x.Value, x => x.Key);
+        }
     }
 }

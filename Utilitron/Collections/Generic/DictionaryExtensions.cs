@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Utilitron.Collections.Generic
 {
@@ -27,6 +28,19 @@ namespace Utilitron.Collections.Generic
             return dictionary.TryGetValue(key, out value)
                 ? value
                 : default(TValue);
+        }
+
+        /// <summary>
+        ///     Converts an <see cref="IDictionary{TKey,TValue}" /> to an <see cref="ILookup{TKey,TElement}" /> by swapping the
+        ///     keys and values.
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="dictionary">The dictionary to convert.</param>
+        /// <returns>An <see cref="ILookup{TKey,TElement}" /> created by using the dictionary values as lookup keys and the dictionary keys as values.</returns>
+        public static ILookup<TValue, TKey> ToLookup<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
+        {
+            return dictionary.ToLookup(x => x.Value, x => x.Key);
         }
     }
 }
