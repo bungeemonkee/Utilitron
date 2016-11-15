@@ -151,7 +151,8 @@ namespace Utilitron.Data
 
                 using (var text = new StreamReader(resource, Encoding.UTF8, true))
                 {
-                    return text.ReadToEnd();
+                    var query = text.ReadToEnd();
+                    return QueryUtilities.Minify(query);
                 }
             }
         }

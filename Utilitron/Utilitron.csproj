@@ -45,6 +45,7 @@
     <Compile Include="Data\EnumerableExtensions.cs" />
     <Compile Include="Data\IRepositoryConfiguration.cs" />
     <Compile Include="Data\Model.cs" />
+    <Compile Include="Data\QueryUtilities.cs" />
     <Compile Include="Data\Repository.cs" />
     <Compile Include="Functional\Union`3.cs" />
     <Compile Include="Functional\Union`2.cs" />
