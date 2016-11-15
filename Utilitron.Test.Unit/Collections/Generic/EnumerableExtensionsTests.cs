@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using NcApi.Tests.Unit;
 using Utilitron.Collections.Generic;
 
 namespace Utilitron.Test.Unit.Collections.Generic
