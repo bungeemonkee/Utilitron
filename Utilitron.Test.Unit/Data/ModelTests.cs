@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Utilitron.Test.Unit.Data
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class ModelTests
     {
         [TestMethod]

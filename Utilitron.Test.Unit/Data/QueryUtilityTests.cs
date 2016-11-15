@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Utilitron.Data;
 
 namespace Utilitron.Test.Unit.Data
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class QueryUtilityTests
     {
         [TestMethod]
