@@ -1,10 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Utilitron.Data;
 
 namespace Utilitron.Test.Unit.Data
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class RepositoryTests
     {
         [TestMethod]

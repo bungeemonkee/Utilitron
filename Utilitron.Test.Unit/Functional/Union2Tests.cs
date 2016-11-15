@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Utilitron.Functional;
 
 namespace Utilitron.Test.Unit.Functional
 {
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class Union3Tests
     {
         [TestMethod]
