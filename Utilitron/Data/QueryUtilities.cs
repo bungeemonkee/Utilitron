@@ -1,18 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Utilitron.Data
 {
     /// <summary>
-    /// Utilities for sql queries.
+    ///     Utilities for sql queries.
     /// </summary>
     public static class QueryUtilities
     {
         private const char Slash = '/';
         private const char Asterix = '*';
         private const char Dash = '-';
+
+        private static readonly Regex IncludeRegex =
+            new Regex(@"/\*\s+Utilitron\.Include:\s+([0-9a-zA-Z/\\\.]+\.sql)\s+\*/");
+
+        private static readonly char[] IncludePathSplitters =
+        {
+            '/',
+            '\\'
+        };
+
+        private static readonly char[] QueryNamePathSplitters =
+        {
+            '.'
+        };
 
         // See: https://msdn.microsoft.com/en-us/library/t809ektx(v=vs.110).aspx
         private static readonly char[] NewLines =
@@ -21,35 +38,35 @@ namespace Utilitron.Data
             '\u0009', // CHARACTER TABULATION
             '\u000B', // LINE TABULATION
             '\u000C', // FORM FEED
-            '\u0085', // NEXT LINE
+            '\u0085' // NEXT LINE
         };
 
         private static readonly char[] TwoCharNewLine =
         {
             '\u000D', // CARRIAGE RETURN
-            '\u000A', // LINE FEED
+            '\u000A' // LINE FEED
         };
 
         /// <summary>
-        /// A simple query minification function.
+        ///     A simple query minification function.
         /// </summary>
         /// <remarks>
-        /// <list type="bullet">
-        /// <listheader>
-        /// This function does three things:
-        /// </listheader>
-        /// <item>
-        /// Remove duplicate newlines.
-        /// </item>
-        /// <item>
-        /// Remove leading whitespace.
-        /// </item>
-        /// <item>
-        /// Remove comments.
-        /// </item>
-        /// </list>
-        /// Note: This function is not cheap and does not cache its results.
-        /// Note: This function does not properly handle comments inside strings inside the queries.
+        ///     <list type="bullet">
+        ///         <listheader>
+        ///             This function does three things:
+        ///         </listheader>
+        ///         <item>
+        ///             Remove duplicate newlines.
+        ///         </item>
+        ///         <item>
+        ///             Remove leading whitespace.
+        ///         </item>
+        ///         <item>
+        ///             Remove comments.
+        ///         </item>
+        ///     </list>
+        ///     Note: This function is not cheap and does not cache its results.
+        ///     Note: This function does not properly handle comments inside strings inside the queries.
         /// </remarks>
         /// <param name="query">The query to minify.</param>
         /// <returns>A minified version of the query.</returns>
@@ -68,14 +85,14 @@ namespace Utilitron.Data
             {
                 var previous = i != 0
                     ? query[i - 1]
-                    : (char)0;
+                    : (char) 0;
                 var current = query[i];
                 var next = i + 1 < query.Length
                     ? query[i + 1]
-                    : (char)0;
+                    : (char) 0;
 
                 // Entering a new multiline comment?
-                if (current == Slash && next == Asterix && !inSingleLineComment)
+                if ((current == Slash) && (next == Asterix) && !inSingleLineComment)
                 {
                     ++i; // Comment markers are two characters so advance one more
                     ++commentMarkerCount;
@@ -83,7 +100,7 @@ namespace Utilitron.Data
                 }
 
                 // Exiting a multiline comment?
-                if (commentMarkerCount > 0 && previous != Slash && current == Asterix && next == Slash)
+                if ((commentMarkerCount > 0) && (previous != Slash) && (current == Asterix) && (next == Slash))
                 {
                     ++i; // Comment markers are two characters so advance one more
                     --commentMarkerCount;
@@ -94,7 +111,7 @@ namespace Utilitron.Data
                 if (commentMarkerCount > 0) continue;
 
                 // Entering a new single line comment?
-                if (current == Dash && next == Dash)
+                if ((current == Dash) && (next == Dash))
                 {
                     ++i; // Comment markers are two characters so advance one more
                     inSingleLineComment = true;
@@ -102,13 +119,11 @@ namespace Utilitron.Data
                 }
 
                 // Handle new lines (collapse duplicate newlines, end single line comments, reset previous whitespace)
-                if (NewLines.Contains(current) || (current == TwoCharNewLine[0] && next == TwoCharNewLine[1]))
+                if (NewLines.Contains(current) || ((current == TwoCharNewLine[0]) && (next == TwoCharNewLine[1])))
                 {
                     // Exiting a single line comment
                     if (inSingleLineComment)
-                    {
                         inSingleLineComment = false;
-                    }
 
                     // If the only characters before were newlines (and/or whitespace) ignore this
                     if (previousWasNewLine) continue;
@@ -155,19 +170,41 @@ namespace Utilitron.Data
         }
 
         /// <summary>
-        /// Get the given embedded query for the given repository type.
+        ///     Get the given embedded query for the given repository type.
         /// </summary>
         /// <remarks>
-        /// <para>
-        /// The query name is expected to be the name of an embedded sql file.
-        /// The location of the query file is the same namespace as the repository type
-        /// plus the repository type name and the word "Queries".
-        /// </para>
-        /// <para>
-        /// Example: A repository with a full name of "Utilitron.Example.Repository" and a query name of "Query"
-        /// would look for an embedded resource named "Utilitron.Example.RepositoryQueries.Query.sql".
-        /// </para>
-        /// Note: This function is not cheap and does not cache its results.
+        ///     <para>
+        ///         The query name is expected to be the name of an embedded sql file.
+        ///         The location of the query file is the same namespace as the repository type
+        ///         plus the repository type name and the word "Queries".
+        ///     </para>
+        ///     <para>
+        ///         Example: A repository with a full name of "Utilitron.Example.Repository" and a query name of "Query"
+        ///         would look for an embedded resource named "Utilitron.Example.RepositoryQueries.Query.sql".
+        ///     </para>
+        ///     <para>
+        ///         The embedded queries support simple include directives of the form /* Utilitron.Include: [FilePath] */. These
+        ///         included query files must also be embedded resources. These includes can be absolute or relative. The file
+        ///         paths can include forward or backward slashes.
+        ///         <list type="bullet">
+        ///             <listheader>
+        ///                 Include Directive Examples:
+        ///             </listheader>
+        ///             <item>
+        ///                 /* Utilitron.Include: IncludeInSameFolder.sql */
+        ///             </item>
+        ///             <item>
+        ///                 /* Utilitron.Include: ../IncludeInParentFolder.sql */
+        ///             </item>
+        ///             <item>
+        ///                 /* Utilitron.Include: Includes/IncludeInSubfolder.sql */
+        ///             </item>
+        ///             <item>
+        ///                 /* Utilitron.Include: /Utilitron/Data/Repository/Includes/IncludeInSubfolder.sql */
+        ///             </item>
+        ///         </list>
+        ///     </para>
+        ///     Note: This function is not cheap and does not cache its results.
         /// </remarks>
         /// <param name="queryName">The name of the query to get.</param>
         /// <param name="repositoryType">The type of the repository requesting the query.</param>
@@ -185,12 +222,91 @@ namespace Utilitron.Data
 
             // Get the embedded resource from the assembly
             var assembly = repositoryType.Assembly;
+            var query = GetEmbeddedQueryText(queryName, assembly);
+
+            // Process any includes in the query
+            query = ProcessQueryIncludes(query, queryName, assembly, Enumerable.Empty<string>());
+
+            // Return the query
+            return query;
+        }
+
+        private static string ProcessQueryIncludes(string query, string queryName, Assembly assembly,
+            IEnumerable<string> previousParents)
+        {
+            // Process any include statements in the query
+            return IncludeRegex.Replace(query,
+                match => ProcessQueryIncludeMatch(match, queryName, assembly, new HashSet<string>(previousParents)));
+        }
+
+        private static string ProcessQueryIncludeMatch(Match match, string parentQueryName, Assembly assembly,
+            ISet<string> previousParents)
+        {
+            // Add the parent to the previous parents collection
+            previousParents.Add(parentQueryName);
+
+            // Get the location of the embedded include
+            var includePath = match.Groups[1].Value;
+
+            // If the include path is "relative" then process it against the parent query's embedded resource location
+            if (IncludePathSplitters.Any(x => includePath[0] == x))
+            {
+                // The include is an "absolute" embedded resource
+
+                // Trim any starting slashes
+                includePath = includePath.Trim(IncludePathSplitters);
+
+                // Replace any slashes with periods
+                includePath = IncludePathSplitters.Aggregate(includePath, (x, y) => x.Replace(y, '.'));
+            }
+            else
+            {
+                // The include is a "relative" embedded resource
+
+                // Get the absolute name of the embedded include
+                var parentQueryNameParts = parentQueryName.Split(QueryNamePathSplitters,
+                    StringSplitOptions.RemoveEmptyEntries);
+                var includePathParts = includePath.Split(IncludePathSplitters, StringSplitOptions.RemoveEmptyEntries);
+                var includePathBuilder = new List<string>(parentQueryNameParts.Length + includePathParts.Length);
+                includePathBuilder.AddRange(parentQueryNameParts.Take(parentQueryNameParts.Length - 2));
+                foreach (var part in includePathParts)
+                    switch (part)
+                    {
+                        case ".":
+                            continue;
+                        case "..":
+                            includePathBuilder.RemoveAt(includePathBuilder.Count - 1);
+                            break;
+                        default:
+                            includePathBuilder.Add(part);
+                            break;
+                    }
+                includePath = string.Join(".", includePathBuilder);
+            }
+
+            // Make sure the include is not already a parent
+            if (previousParents.Contains(includePath))
+                throw new InvalidOperationException($"Recursive embedded query include: {includePath}");
+
+            // Get the include from the embedded resource path
+            var query = GetEmbeddedQueryText(includePath, assembly);
+
+            // Process includes in the new included query (here's the recursive bit)
+            query = ProcessQueryIncludes(query, includePath, assembly, previousParents);
+
+            // Add the include text back to the top of the included query
+            query = match.Value + Environment.NewLine + query;
+
+            // Return the include query
+            return query;
+        }
+
+        private static string GetEmbeddedQueryText(string queryName, Assembly assembly)
+        {
             using (var resource = assembly.GetManifestResourceStream(queryName))
             {
                 if (resource == null)
-                {
                     throw new InvalidOperationException($"No embedded query for {queryName}.");
-                }
 
                 using (var text = new StreamReader(resource, Encoding.UTF8, true))
                 {

@@ -12,7 +12,8 @@ namespace Utilitron.Data
     /// </summary>
     public abstract class Repository
     {
-        private static readonly ConcurrentDictionary<string, string> Queries = new ConcurrentDictionary<string, string>();
+        private static readonly ConcurrentDictionary<string, string> Queries =
+            new ConcurrentDictionary<string, string>();
 
         /// <summary>
         ///     The <see cref="IRepositoryConfiguration" /> for this repository.
@@ -51,9 +52,11 @@ namespace Utilitron.Data
         protected async Task<T> ExecuteAsync<T>(Func<IDbConnection, IDbTransaction, Task<T>> function)
         {
             using (var connection = await GetConnectionAsync())
-            using (var transaction = connection.BeginTransaction(Configuration.TransactionIsolationLevel))
             {
-                return await function(connection, transaction);
+                using (var transaction = connection.BeginTransaction(Configuration.TransactionIsolationLevel))
+                {
+                    return await function(connection, transaction);
+                }
             }
         }
 
@@ -66,13 +69,17 @@ namespace Utilitron.Data
         protected async Task<T> ExecuteAsync<T>(Func<IDbConnection, IDbTransaction, IDbCommand, Task<T>> function)
         {
             using (var connection = await GetConnectionAsync())
-            using (var transaction = connection.BeginTransaction(Configuration.TransactionIsolationLevel))
-            using (var command = connection.CreateCommand())
             {
-                command.Transaction = transaction;
-                command.CommandTimeout = Configuration.DefaultCommandTimeoutSeconds;
+                using (var transaction = connection.BeginTransaction(Configuration.TransactionIsolationLevel))
+                {
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        command.CommandTimeout = Configuration.DefaultCommandTimeoutSeconds;
 
-                return await function(connection, transaction, command);
+                        return await function(connection, transaction, command);
+                    }
+                }
             }
         }
 
@@ -111,15 +118,16 @@ namespace Utilitron.Data
 
         /// <summary>
         ///     Get the query text for the calling method.
+        ///     <see cref="QueryUtilities.GetEmbeddedQuery" /> and <see cref="QueryUtilities.Minify" /> for more details.
+        ///     The resulting query text is cached by each repository on a per-class basis so each query is only extracted and
+        ///     minified once.
         /// </summary>
         /// <param name="queryName">The name of the query to get. This defaults to the calling method.</param>
         /// <returns>The query text.</returns>
         protected string GetQuery([CallerMemberName] string queryName = null)
         {
             if (queryName == null)
-            {
                 throw new ArgumentNullException(nameof(queryName));
-            }
 
             return Queries.GetOrAdd(queryName, GetQueryInternal);
         }
