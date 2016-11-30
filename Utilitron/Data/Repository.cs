@@ -35,7 +35,7 @@ namespace Utilitron.Data
         /// </summary>
         /// <typeparam name="T">The return type.</typeparam>
         /// <param name="function">The function to execute.</param>
-        /// <returns>The result of the fucntion.</returns>
+        /// <returns>The result of the function.</returns>
         protected async Task<T> ExecuteAsync<T>(Func<IDbConnection, Task<T>> function)
         {
             using (var connection = await GetConnectionAsync())
@@ -49,7 +49,7 @@ namespace Utilitron.Data
         /// </summary>
         /// <typeparam name="T">The return type.</typeparam>
         /// <param name="function">The function to execute.</param>
-        /// <returns>The result of the fucntion.</returns>
+        /// <returns>The result of the function.</returns>
         protected async Task<T> ExecuteAsync<T>(Func<IDbConnection, IDbTransaction, Task<T>> function)
         {
             using (var connection = await GetConnectionAsync())
@@ -64,7 +64,7 @@ namespace Utilitron.Data
         /// </summary>
         /// <typeparam name="T">The return type.</typeparam>
         /// <param name="function">The function to execute.</param>
-        /// <returns>The result of the fucntion.</returns>
+        /// <returns>The result of the function.</returns>
         protected async Task<T> ExecuteAsync<T>(Func<IDbConnection, IDbTransaction, IDbCommand, Task<T>> function)
         {
             using (var connection = await GetConnectionAsync())
