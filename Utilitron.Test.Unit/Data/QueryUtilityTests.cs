@@ -73,5 +73,29 @@ from Bananas
             var result = QueryUtilities.Minify(query);
             Assert.AreEqual(expected, result);
         }
+
+        [TestMethod]
+        public void GetEmbeddedQuery_Includes_Included_Queries()
+        {
+            const string expected = @"before first include
+/* Utilitron.Include: ./../RepositoryAncestor1Queries/IncludeQueryInner.sql */
+include query
+after first include
+before second include
+/* Utilitron.Include: /Utilitron/Test/Unit/Data/RepositoryAncestor1Queries/IncludeQueryInner.sql */
+include query
+after second include";
+
+            var result = QueryUtilities.GetEmbeddedQuery("IncludeQueryOuter", typeof(RepositoryAncestor1));
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void GetEmbeddedQuery_Throws_InvalidOperationException_If_Includes_Become_Recursive()
+        {
+            QueryUtilities.GetEmbeddedQuery("IncludeQueryRecursive", typeof(RepositoryAncestor1));
+        }
     }
 }
