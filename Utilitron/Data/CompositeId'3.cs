@@ -1,7 +1,7 @@
 ﻿namespace Utilitron.Data
 {
     /// <summary>
-    ///     An identifier type used to represent composite identifers.
+    ///     An identifier type used to represent composite identifiers.
     ///     Primarily for use with <see cref="Model{TIdentifier,TModel}" /> objects.
     /// </summary>
     /// <typeparam name="TKey1">The type of the first id field.</typeparam>
