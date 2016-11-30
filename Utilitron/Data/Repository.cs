@@ -2,9 +2,7 @@
 using System.Collections.Concurrent;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Utilitron.Data
@@ -131,30 +129,11 @@ namespace Utilitron.Data
             // Get the current type
             var type = GetType();
 
-            // Get the member that matches this query
-            var member = type.GetMethod(queryName);
+            // Get the query
+            var query = QueryUtilities.GetEmbeddedQuery(queryName, type);
 
-            // Use the type that actually declared the member or the current type if it is not available
-            type = member?.DeclaringType ?? type;
-
-            // Add the type name (and 'Queries') to the query name
-            queryName = $"{type.FullName}Queries.{queryName}.sql";
-
-            // Get the embedded resource from the assembly
-            var assembly = type.Assembly;
-            using (var resource = assembly.GetManifestResourceStream(queryName))
-            {
-                if (resource == null)
-                {
-                    throw new InvalidOperationException($"No embedded query for {queryName}.");
-                }
-
-                using (var text = new StreamReader(resource, Encoding.UTF8, true))
-                {
-                    var query = text.ReadToEnd();
-                    return QueryUtilities.Minify(query);
-                }
-            }
+            // minify and return the query
+            return QueryUtilities.Minify(query);
         }
     }
 }

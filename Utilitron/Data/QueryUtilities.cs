@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -151,6 +152,51 @@ namespace Utilitron.Data
             }
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// Get the given embedded query for the given repository type.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// The query name is expected to be the name of an embedded sql file.
+        /// The location of the query file is the same namespace as the repository type
+        /// plus the repository type name and the word "Queries".
+        /// </para>
+        /// <para>
+        /// Example: A repository with a full name of "Utilitron.Example.Repository" and a query name of "Query"
+        /// would look for an embedded resource named "Utilitron.Example.RepositoryQueries.Query.sql".
+        /// </para>
+        /// Note: This function is not cheap and does not cache its results.
+        /// </remarks>
+        /// <param name="queryName">The name of the query to get.</param>
+        /// <param name="repositoryType">The type of the repository requesting the query.</param>
+        /// <returns>The query text.</returns>
+        public static string GetEmbeddedQuery(string queryName, Type repositoryType)
+        {
+            // Get the member that matches this query
+            var member = repositoryType.GetMethod(queryName);
+
+            // Use the type that actually declared the member or the current type if it is not available
+            repositoryType = member?.DeclaringType ?? repositoryType;
+
+            // Add the type name (and "Queries") to the query name
+            queryName = $"{repositoryType.FullName}Queries.{queryName}.sql";
+
+            // Get the embedded resource from the assembly
+            var assembly = repositoryType.Assembly;
+            using (var resource = assembly.GetManifestResourceStream(queryName))
+            {
+                if (resource == null)
+                {
+                    throw new InvalidOperationException($"No embedded query for {queryName}.");
+                }
+
+                using (var text = new StreamReader(resource, Encoding.UTF8, true))
+                {
+                    return text.ReadToEnd();
+                }
+            }
         }
     }
 }
