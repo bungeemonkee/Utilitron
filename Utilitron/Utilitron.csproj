@@ -41,6 +41,7 @@
     <Compile Include="Collections\Generic\EnumerableExtensions.cs" />
     <Compile Include="Data\CompositeId%273.cs" />
     <Compile Include="Data\CompositeId%272.cs" />
+    <Compile Include="Data\CompositeId.cs" />
     <Compile Include="Data\DictionaryExtensions.cs" />
     <Compile Include="Data\EnumerableExtensions.cs" />
     <Compile Include="Data\IRepositoryConfiguration.cs" />
