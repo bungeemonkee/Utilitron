@@ -50,7 +50,7 @@ on stuff
 select *
 /*
     This is a list of all the things
-    we should be slecting instead of *
+    we should be selecting instead of *
     It is also a multiline comment
     /*
         This is a multiline comment inside a multiline comment.
