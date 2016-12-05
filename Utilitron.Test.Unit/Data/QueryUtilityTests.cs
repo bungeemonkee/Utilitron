@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Utilitron.Data;
 
@@ -77,6 +78,9 @@ from Bananas
         [TestMethod]
         public void GetEmbeddedQuery_Includes_Included_Queries()
         {
+            const string newline = @"
+";
+
             const string expected = @"before first include
 /* Utilitron.Include: ./../RepositoryAncestor1Queries/IncludeQueryInner.sql */
 include query
@@ -85,6 +89,8 @@ before second include
 /* Utilitron.Include: /Utilitron/Test/Unit/Data/RepositoryAncestor1Queries/IncludeQueryInner.sql */
 include query
 after second include";
+
+            if (Environment.NewLine != newline) Assert.Inconclusive($"Environment.NewLine is not {string.Join(string.Empty, newline.Select(x => ((int) x).ToString("X4")))}.");
 
             var result = QueryUtilities.GetEmbeddedQuery("IncludeQueryOuter", typeof(RepositoryAncestor1));
 
