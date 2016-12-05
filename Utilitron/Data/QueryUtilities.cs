@@ -37,8 +37,12 @@ namespace Utilitron.Data
             (char) 0x2028, // LINE SEPARATOR
             (char) 0x0009, // CHARACTER TABULATION
             (char) 0x000B, // LINE TABULATION
-            (char) 0x000c, // FORM FEED
+            (char) 0x000C, // FORM FEED
             (char) 0x0085, // NEXT LINE
+
+            // Any characters in TwoCharNewLine must also be in this array
+            (char) 0x000D, // CARRIAGE RETURN
+            (char) 0x000A, // LINE FEED
         };
 
         private static readonly char[] TwoCharNewLine =
@@ -119,7 +123,7 @@ namespace Utilitron.Data
                 }
 
                 // Handle new lines (collapse duplicate newlines, end single line comments, reset previous whitespace)
-                if (NewLines.Contains(current) || ((current == TwoCharNewLine[0]) && (next == TwoCharNewLine[1])))
+                if (NewLines.Contains(current))
                 {
                     // Exiting a single line comment
                     if (inSingleLineComment)
@@ -133,7 +137,7 @@ namespace Utilitron.Data
                     hasSeenNonWhitespace = false;
 
                     // Append the newline (do this specially to handle two-character newlines)
-                    if (current == TwoCharNewLine[0])
+                    if (current == TwoCharNewLine[0] && next == TwoCharNewLine[1])
                     {
                         ++i;
                         sb.Append(TwoCharNewLine);
