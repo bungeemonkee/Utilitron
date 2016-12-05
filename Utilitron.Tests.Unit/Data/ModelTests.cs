@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Utilitron.Test.Unit.Data
+namespace Utilitron.Tests.Unit.Data
 {
     [TestClass]
     [ExcludeFromCodeCoverage]

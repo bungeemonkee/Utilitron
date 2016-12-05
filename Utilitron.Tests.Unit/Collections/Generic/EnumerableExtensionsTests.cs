@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Utilitron.Collections.Generic;
 
-namespace Utilitron.Test.Unit.Collections.Generic
+namespace Utilitron.Tests.Unit.Collections.Generic
 {
     [TestClass]
     [ExcludeFromCodeCoverage]

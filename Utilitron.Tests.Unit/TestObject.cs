@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Utilitron.Test.Unit
+namespace Utilitron.Tests.Unit
 {
     [ExcludeFromCodeCoverage]
     public class TestObject
