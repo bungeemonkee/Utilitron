@@ -34,17 +34,17 @@ namespace Utilitron.Data
         // See: https://msdn.microsoft.com/en-us/library/t809ektx(v=vs.110).aspx
         private static readonly char[] NewLines =
         {
-            '\u2028', // LINE SEPARATOR
-            '\u0009', // CHARACTER TABULATION
-            '\u000B', // LINE TABULATION
-            '\u000C', // FORM FEED
-            '\u0085' // NEXT LINE
+            (char) 0x2028, // LINE SEPARATOR
+            (char) 0x0009, // CHARACTER TABULATION
+            (char) 0x000B, // LINE TABULATION
+            (char) 0x000c, // FORM FEED
+            (char) 0x0085, // NEXT LINE
         };
 
         private static readonly char[] TwoCharNewLine =
         {
-            '\u000D', // CARRIAGE RETURN
-            '\u000A' // LINE FEED
+            (char) 0x000D, // CARRIAGE RETURN
+            (char) 0x000A, // LINE FEED
         };
 
         /// <summary>
