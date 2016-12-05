@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Utilitron.Data;
 
-namespace Utilitron.Test.Unit.Data
+namespace Utilitron.Tests.Unit.Data
 {
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -86,7 +86,7 @@ from Bananas
 include query
 after first include
 before second include
-/* Utilitron.Include: /Utilitron/Test/Unit/Data/RepositoryAncestor1Queries/IncludeQueryInner.sql */
+/* Utilitron.Include: /Utilitron/Tests/Unit/Data/RepositoryAncestor1Queries/IncludeQueryInner.sql */
 include query
 after second include";
 

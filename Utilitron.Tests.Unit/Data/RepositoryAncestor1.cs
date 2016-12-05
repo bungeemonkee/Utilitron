@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Utilitron.Data;
 
-namespace Utilitron.Test.Unit.Data
+namespace Utilitron.Tests.Unit.Data
 {
     [ExcludeFromCodeCoverage]
     public class RepositoryAncestor1 : Repository

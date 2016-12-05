@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Utilitron.Data;
 
-namespace Utilitron.Test.Unit.Data
+namespace Utilitron.Tests.Unit.Data
 {
     [TestClass]
     [ExcludeFromCodeCoverage]

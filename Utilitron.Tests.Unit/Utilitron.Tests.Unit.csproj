@@ -7,8 +7,8 @@
     <ProjectGuid>{65F6062D-EEA6-4F80-812D-2103DC521E9C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Utilitron.Test.Unit</RootNamespace>
-    <AssemblyName>Utilitron.Test.Unit</AssemblyName>
+    <RootNamespace>Utilitron.Tests.Unit</RootNamespace>
+    <AssemblyName>Utilitron.Tests.Unit</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
