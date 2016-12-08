@@ -28,10 +28,10 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("73c0ccc7-fc6f-4c3e-b6e7-41cc05a57f7c")]
 
-[assembly: AssemblyVersion("1.0.0.16")]
-[assembly: AssemblyFileVersion("1.0.0.16")]
+[assembly: AssemblyVersion("1.0.0.17")]
+[assembly: AssemblyFileVersion("1.0.0.17")]
 
 // This version number will roughly follow semantic versioning : http://semver.org
 // The first three numbers will always match the first the numbers of the version above.
 // This must alos be updated in project.json
-[assembly: AssemblyInformationalVersion("1.0.0-alpha16")]
+[assembly: AssemblyInformationalVersion("1.0.0-alpha17")]
