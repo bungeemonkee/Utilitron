@@ -30,3 +30,11 @@ after_test:
 artifacts:
 - path: '*.nupkg'
   name: Nuget Package
+
+deploy:
+- provider: NuGet
+  api_key:
+    secure: P2oh37pn3l7Tp9qTP87aOB0GFxg8WnlFyV8n3p1eqMS5aUVur1Yg3xQ2inbIDOCr
+  skip_symbols: false
+  on:
+    branch: master
