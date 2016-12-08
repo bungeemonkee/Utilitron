@@ -21,11 +21,11 @@ build:
   project: Utilitron.sln
   verbosity: minimal
 
+test_script:
+- cmd: test.bat
+
 after_test:
-- cmd: >-
-    test.bat
-    
-    nuget.bat
+- cmd: nuget.bat
 
 artifacts:
 - path: '*.nupkg'
