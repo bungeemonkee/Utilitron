@@ -14,15 +14,16 @@ environment:
   COVERALLS_REPO_TOKEN:
     secure: TuzfJo1wRIIoC/i5Oxa1tifRWgQ60loT0GbPjuircCeW5sH5uC714YWVJ02EXnVG
 
-before_build:
-- cmd: nuget restore Utilitron.sln
-
 build:
   project: Utilitron.sln
   verbosity: minimal
 
 after_test:
 - cmd: >-
-    packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -filter:"+[Utilitron]* -[Utilitron]System.*" -target:"vstest.console.exe" -targetargs:"Utilitron.Tests.Unit\bin\%configuration%\Utilitron.Tests.Unit.dll" -output:coverage.xml
+    test.bat
     
-    packages\coveralls.io.1.3.4\tools\coveralls.net.exe --opencover coverage.xml
+    nuget.bat
+
+artifacts:
+- path: '*.nupkg'
+  name: Nuget Package

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -35,7 +36,7 @@ namespace Utilitron.Data
         /// <typeparam name="T">The return type.</typeparam>
         /// <param name="function">The function to execute.</param>
         /// <returns>The result of the function.</returns>
-        protected async Task<T> ExecuteAsync<T>(Func<IDbConnection, Task<T>> function)
+        protected async Task<T> ExecuteAsync<T>(Func<DbConnection, Task<T>> function)
         {
             using (var connection = await GetConnectionAsync())
             {
@@ -49,7 +50,7 @@ namespace Utilitron.Data
         /// <typeparam name="T">The return type.</typeparam>
         /// <param name="function">The function to execute.</param>
         /// <returns>The result of the function.</returns>
-        protected async Task<T> ExecuteAsync<T>(Func<IDbConnection, IDbTransaction, Task<T>> function)
+        protected async Task<T> ExecuteAsync<T>(Func<DbConnection, DbTransaction, Task<T>> function)
         {
             using (var connection = await GetConnectionAsync())
             {
@@ -66,7 +67,7 @@ namespace Utilitron.Data
         /// <typeparam name="T">The return type.</typeparam>
         /// <param name="function">The function to execute.</param>
         /// <returns>The result of the function.</returns>
-        protected async Task<T> ExecuteAsync<T>(Func<IDbConnection, IDbTransaction, IDbCommand, Task<T>> function)
+        protected async Task<T> ExecuteAsync<T>(Func<DbConnection, DbTransaction, DbCommand, Task<T>> function)
         {
             using (var connection = await GetConnectionAsync())
             {
@@ -89,8 +90,8 @@ namespace Utilitron.Data
         /// <remarks>
         ///     Internally calls <see cref="GetConnectionAsync()" /> and waits for the result.
         /// </remarks>
-        /// <returns>An <see cref="IDbConnection" /> representing an open connection to the database.</returns>
-        protected IDbConnection GetConnection()
+        /// <returns>An <see cref="DbConnection" /> representing an open connection to the database.</returns>
+        protected DbConnection GetConnection()
         {
             return GetConnectionAsync().Result;
         }
@@ -98,8 +99,8 @@ namespace Utilitron.Data
         /// <summary>
         ///     Get and open a connection to the database asynchronously.
         /// </summary>
-        /// <returns>An <see cref="IDbConnection" /> representing an open connection to the database.</returns>
-        protected virtual async Task<IDbConnection> GetConnectionAsync()
+        /// <returns>An <see cref="DbConnection" /> representing an open connection to the database.</returns>
+        protected virtual async Task<DbConnection> GetConnectionAsync()
         {
             var connection = new SqlConnection(Configuration.RepositoryConnectionString);
 

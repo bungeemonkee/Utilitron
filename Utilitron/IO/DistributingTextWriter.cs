@@ -1,9 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
+
+#if NET46
+using System.Runtime.Remoting;
+#endif
 
 namespace Utilitron.IO
 {
@@ -67,26 +70,6 @@ namespace Utilitron.IO
         }
 
         /// <summary>
-        ///     See <see cref="TextWriter.Close()" />.
-        /// </summary>
-        public override void Close()
-        {
-            foreach (var writer in _writers)
-            {
-                writer.Close();
-            }
-        }
-
-        /// <summary>
-        ///     See <see cref="MarshalByRefObject.CreateObjRef(Type)" />.
-        /// </summary>
-        /// <exception cref="NotImplementedException">Always thrown.</exception>
-        public override ObjRef CreateObjRef(Type requestedType)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
         ///     See <see cref="TextWriter.Flush()" />.
         /// </summary>
         public override void Flush()
@@ -101,15 +84,6 @@ namespace Utilitron.IO
         {
             var tasks = _writers.Select(x => x.FlushAsync());
             return Task.WhenAll(tasks);
-        }
-
-        /// <summary>
-        ///     See <see cref="MarshalByRefObject.InitializeLifetimeService()" />.
-        /// </summary>
-        /// <exception cref="NotImplementedException">Always thrown.</exception>
-        public override object InitializeLifetimeService()
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -543,5 +517,38 @@ namespace Utilitron.IO
                 writer.Dispose();
             }
         }
+
+#if NET46
+
+        /// <summary>
+        ///     See <see cref="TextWriter.Close()" />.
+        /// </summary>
+        public override void Close()
+        {
+            foreach (var writer in _writers)
+            {
+                writer.Close();
+            }
+        }
+
+        /// <summary>
+        ///     See <see cref="MarshalByRefObject.CreateObjRef(Type)" />.
+        /// </summary>
+        /// <exception cref="NotImplementedException">Always thrown.</exception>
+        public override ObjRef CreateObjRef(Type requestedType)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        ///     See <see cref="MarshalByRefObject.InitializeLifetimeService()" />.
+        /// </summary>
+        /// <exception cref="NotImplementedException">Always thrown.</exception>
+        public override object InitializeLifetimeService()
+        {
+            throw new NotImplementedException();
+        }
+
+#endif
     }
 }
