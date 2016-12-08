@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0-*",
+
+  "testRunner": "mstest",
+
+  "dependencies": {
+    "coveralls.io": "1.3.4",
+    "dotnet-test-mstest": "1.1.2-preview",
+    "Moq": "4.5.28",
+    "MSTest.TestFramework": "1.0.7-preview",
+    "OpenCover": "4.6.519",
+    "Utilitron": "1.0.0-alpha16"
+  },
+
+  "frameworks": {
+    "net46": {
+      "dependencies": {
+      },
+      "frameworkAssemblies": {
+      }
+    }
+  },
+
+  "buildOptions": {
+    "embed": [
+      "Data/RepositoryAncestor1Queries/*.sql"
+    ] 
+  }
+}

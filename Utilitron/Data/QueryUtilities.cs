@@ -225,7 +225,7 @@ namespace Utilitron.Data
             queryName = $"{repositoryType.FullName}Queries.{queryName}.sql";
 
             // Get the embedded resource from the assembly
-            var assembly = repositoryType.Assembly;
+            var assembly = repositoryType.GetTypeInfo().Assembly;
             var query = GetEmbeddedQueryText(queryName, assembly);
 
             // Process any includes in the query
