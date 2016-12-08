@@ -14,7 +14,7 @@ environment:
   COVERALLS_REPO_TOKEN:
     secure: TuzfJo1wRIIoC/i5Oxa1tifRWgQ60loT0GbPjuircCeW5sH5uC714YWVJ02EXnVG
 
-before build:
+before_build:
   cmd: dotnet restore
     
 build:
