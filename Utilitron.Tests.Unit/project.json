@@ -7,7 +7,7 @@
     "dotnet-test-mstest": "1.1.2-preview",
     "Moq": "4.5.28",
     "MSTest.TestFramework": "1.0.7-preview",
-    "Utilitron": "1.0.0-alpha16"
+    "Utilitron": "1.0.0-alpha17"
   },
 
   "frameworks": {
