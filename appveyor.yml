@@ -14,6 +14,9 @@ environment:
   COVERALLS_REPO_TOKEN:
     secure: TuzfJo1wRIIoC/i5Oxa1tifRWgQ60loT0GbPjuircCeW5sH5uC714YWVJ02EXnVG
 
+before build:
+  cmd: dotnet restore
+    
 build:
   project: Utilitron.sln
   verbosity: minimal
