@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-#if NET46
+#if NET45
 using System.Runtime.Remoting;
 #endif
 
@@ -518,7 +518,7 @@ namespace Utilitron.IO
             }
         }
 
-#if NET46
+#if NET45
 
         /// <summary>
         ///     See <see cref="TextWriter.Close()" />.
