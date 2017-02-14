@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,7 +8,8 @@ using Utilitron.Data;
 namespace Utilitron.Tests.Unit.Data
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
+    //[ExcludeFromCodeCoverage]
+    [GeneratedCode("Testing", "")] // TODO: .NET Core won't have [ExcludeFromCodeCoverage] until 2.0 so this is temporary
     public class QueryUtilityTests
     {
         [TestMethod]

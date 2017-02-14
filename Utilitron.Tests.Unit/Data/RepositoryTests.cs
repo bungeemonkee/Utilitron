@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.CodeDom.Compiler;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Utilitron.Data;
@@ -6,7 +7,8 @@ using Utilitron.Data;
 namespace Utilitron.Tests.Unit.Data
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
+    //[ExcludeFromCodeCoverage]
+    [GeneratedCode("Testing", "")] // TODO: .NET Core won't have [ExcludeFromCodeCoverage] until 2.0 so this is temporary
     public class RepositoryTests
     {
         [TestMethod]

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -9,7 +10,8 @@ using Utilitron.Collections.Generic;
 namespace Utilitron.Tests.Unit.Collections.Generic
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
+    //[ExcludeFromCodeCoverage]
+    [GeneratedCode("Testing", "")] // TODO: .NET Core won't have [ExcludeFromCodeCoverage] until 2.0 so this is temporary
     public class EnumerableExtensionsTests
     {
         [TestMethod]
