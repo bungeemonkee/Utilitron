@@ -15,10 +15,10 @@ environment:
     secure: TuzfJo1wRIIoC/i5Oxa1tifRWgQ60loT0GbPjuircCeW5sH5uC714YWVJ02EXnVG
 
 before_build:
-  cmd: dotnet restore
+- cmd: dotnet restore
     
 build:
-  cmd: scripts\build.bat
+- cmd: scripts\build.bat
 
 test_script:
 - cmd: scripts\test.bat
