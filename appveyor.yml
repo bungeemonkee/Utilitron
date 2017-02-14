@@ -15,16 +15,16 @@ environment:
     secure: TuzfJo1wRIIoC/i5Oxa1tifRWgQ60loT0GbPjuircCeW5sH5uC714YWVJ02EXnVG
 
 before_build:
-- cmd: dotnet restore
+- cmd: _build\restore.bat
     
 build_script:
-- cmd: scripts\build.bat
+- cmd: _build\build.bat
 
 test_script:
-- cmd: scripts\test.bat
+- cmd: _build\test.bat
 
 after_test:
-- cmd: scripts\nuget.bat
+- cmd: _build\package.bat
 
 artifacts:
 - path: '*.nupkg'
