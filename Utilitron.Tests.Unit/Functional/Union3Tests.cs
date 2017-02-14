@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Utilitron.Functional;
@@ -6,7 +7,8 @@ using Utilitron.Functional;
 namespace Utilitron.Tests.Unit.Functional
 {
     [TestClass]
-    [ExcludeFromCodeCoverage]
+    //[ExcludeFromCodeCoverage]
+    [GeneratedCode("Testing", "")] // TODO: .NET Core won't have [ExcludeFromCodeCoverage] until 2.0 so this is temporary
     public class Union2Tests
     {
         [TestMethod]

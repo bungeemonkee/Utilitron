@@ -18,14 +18,13 @@ before_build:
   cmd: dotnet restore
     
 build:
-  project: Utilitron.sln
-  verbosity: minimal
+  cmd: scripts\build.bat
 
 test_script:
-- cmd: test.bat
+- cmd: scripts\test.bat
 
 after_test:
-- cmd: nuget.bat
+- cmd: scripts\nuget.bat
 
 artifacts:
 - path: '*.nupkg'

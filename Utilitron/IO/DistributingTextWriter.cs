@@ -4,10 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-#if NET45
-using System.Runtime.Remoting;
-#endif
-
 namespace Utilitron.IO
 {
     /// <summary>
@@ -517,38 +513,5 @@ namespace Utilitron.IO
                 writer.Dispose();
             }
         }
-
-#if NET45
-
-        /// <summary>
-        ///     See <see cref="TextWriter.Close()" />.
-        /// </summary>
-        public override void Close()
-        {
-            foreach (var writer in _writers)
-            {
-                writer.Close();
-            }
-        }
-
-        /// <summary>
-        ///     See <see cref="MarshalByRefObject.CreateObjRef(Type)" />.
-        /// </summary>
-        /// <exception cref="NotImplementedException">Always thrown.</exception>
-        public override ObjRef CreateObjRef(Type requestedType)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        ///     See <see cref="MarshalByRefObject.InitializeLifetimeService()" />.
-        /// </summary>
-        /// <exception cref="NotImplementedException">Always thrown.</exception>
-        public override object InitializeLifetimeService()
-        {
-            throw new NotImplementedException();
-        }
-
-#endif
     }
 }

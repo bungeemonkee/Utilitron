@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Release")]
 #endif
 
-[assembly: AssemblyCompany("David love")]
+[assembly: AssemblyCompany("David Love")]
 [assembly: AssemblyProduct("Utilitron")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
