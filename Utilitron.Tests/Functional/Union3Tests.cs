@@ -1,10 +1,9 @@
 ﻿using System;
 using System.CodeDom.Compiler;
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Utilitron.Functional;
 
-namespace Utilitron.Tests.Unit.Functional
+namespace Utilitron.Tests.Functional
 {
     [TestClass]
     //[ExcludeFromCodeCoverage]

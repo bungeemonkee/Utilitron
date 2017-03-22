@@ -1,11 +1,10 @@
 ﻿using System;
 using System.CodeDom.Compiler;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Utilitron.Data;
 
-namespace Utilitron.Tests.Unit.Data
+namespace Utilitron.Tests.Data
 {
     [TestClass]
     //[ExcludeFromCodeCoverage]
@@ -88,7 +87,7 @@ from Bananas
 include query
 after first include
 before second include
-/* Utilitron.Include: /Utilitron/Tests/Unit/Data/RepositoryAncestor1Queries/IncludeQueryInner.sql */
+/* Utilitron.Include: /Utilitron/Tests/Data/RepositoryAncestor1Queries/IncludeQueryInner.sql */
 include query
 after second include";
 

@@ -1,10 +1,9 @@
 ﻿using System.CodeDom.Compiler;
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Utilitron.Data;
 
-namespace Utilitron.Tests.Unit.Data
+namespace Utilitron.Tests.Data
 {
     [TestClass]
     //[ExcludeFromCodeCoverage]

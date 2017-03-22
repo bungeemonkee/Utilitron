@@ -1,0 +1,543 @@
+[33mcommit 7730cf057900b25aafba7eca7d0be0ddc4b9d33e[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Wed Mar 22 10:52:13 2017 -0400
+
+    Minor appveyor.yml cleanup
+
+[33mcommit e21b2cf01f1f4e2190c050f3e9765e03f4314b66[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Wed Mar 22 10:50:48 2017 -0400
+
+    Build improvements
+
+[33mcommit 646afd1ce6d57697b76f1ec7fe214461e646d78b[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Feb 14 14:55:45 2017 -0500
+
+    Change the build scripts to all use dotnet.exe instead of msbuild.exe and nuget.exe
+
+[33mcommit 324c99acf3258a3cc835e4d3d513e83350ba72e4[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Feb 14 12:06:04 2017 -0500
+
+    Fix appveyor.yml (for real?)
+
+[33mcommit d1488c4494d078535df78bb33bd6a35d4747d6b8[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Feb 14 12:04:40 2017 -0500
+
+    Fix appveyor.yml (maybe?)
+
+[33mcommit 88b9e43db15f7dcfe50bbade3cd1540d90c84e14[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Feb 14 12:02:33 2017 -0500
+
+    Add several aync IEnumerable extensions
+
+[33mcommit 3322b9db98f54047660258ca3c90b8529ce0ae8c[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Feb 14 12:01:46 2017 -0500
+
+    Make it work as a .net standard project
+    
+    This is what I get for using RC tooling
+
+[33mcommit 5c34e09f34f34746cf3d095e94e91535e8b8485f[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 19:30:30 2016 -0500
+
+    Fix DistributingTextWriter conditional compilation
+
+[33mcommit d88cc0346e6a70bc32d04230fa2b6c5318725a0b[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 18:04:42 2016 -0500
+
+    Version 1.0.0-alpha17
+
+[33mcommit 1837001e5e6fbf306726af991e79689cddf559b2[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 18:01:57 2016 -0500
+
+    Target .NET 4.5 instead of 4.6
+
+[33mcommit 86e548072e024dcdc4632fc75eb972bc6d0010c7[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 17:57:01 2016 -0500
+
+    Remove unecessary dependencies
+    
+    Nuget packages for .NET Core apps do not include content files or tools so the OpenCover and Coveralls packages won't work anymore
+
+[33mcommit 9fb4e6c12a8d14bc8e5c614ea2b8c003ecf26b42[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 17:52:35 2016 -0500
+
+    Remove a nuspec file that shouldn't have gotten in there
+
+[33mcommit 8311865bd56c6d8edebc9456b6ef00fa748e4348[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 17:42:51 2016 -0500
+
+    Add OpenCover assemblies excluded by .gitignore
+    
+    Duh!
+
+[33mcommit 40bcfff7f71b6fbe70082cbfbcdb29ec1532bc31[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 17:38:10 2016 -0500
+
+    Still trying to get OpenCover to work
+
+[33mcommit 1f13cf2af2c09beb63869f3be6feb9ce2e67c159[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 17:17:43 2016 -0500
+
+    Reverting 6df4a7e since it apprently just makes there be no test results
+
+[33mcommit 4aef623bc0320760b61903eb2db11b96670dab8b[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 17:09:29 2016 -0500
+
+    Automatically deploy nuget packages from master
+
+[33mcommit 9d9a1545943de5b08e5cf826a0dbe6fc5679f774[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 17:08:59 2016 -0500
+
+    Run tests as a formal test script
+
+[33mcommit 53655f53663d3fc893ca7fc5b27df9424a516e02[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 17:05:18 2016 -0500
+
+    Build scripts should handle errors correctly
+
+[33mcommit 6df4a7ef4deb8568d3d3a2283ae1a90e741e9515[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 16:49:54 2016 -0500
+
+    Possible fix for Open Cover error
+
+[33mcommit 11503b5499632405d67a18a77d5ca5a39408fbfd[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 16:44:14 2016 -0500
+
+    Missing underscore, my bad
+
+[33mcommit 36d6f8c79be4984ff50a1870114638e8e8669b29[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 16:43:17 2016 -0500
+
+    Restore packages before build
+
+[33mcommit d67eb5e56c35af5833553fbc802e91ee70574486[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Dec 8 16:40:30 2016 -0500
+
+    Posibly working port to .NET Core and .NET 4.6
+
+[33mcommit 0dccc86ebbafec3de7bccc054c31640806ac77ec[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Dec 5 10:57:25 2016 -0500
+
+    Change Test namespace to Tests
+
+[33mcommit 69bf94e584237c1ce63624f71390faa794c88919[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Dec 5 10:51:02 2016 -0500
+
+    Make a test be inconclusive when Environemnt.NewLine is incorrect
+
+[33mcommit 07d218291e1ab68c1acc92a91f951802df0cae49[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Dec 5 10:43:15 2016 -0500
+
+    Minor improvemnt to newline handling in query minification
+
+[33mcommit 684ea24e959b5d3e745471e617a368980927587a[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Dec 5 10:35:43 2016 -0500
+
+    Possible fix for build failures due to newline wierdness
+
+[33mcommit b018ae604307317240def18c55c24b4cfbdf92d6[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Wed Nov 30 18:05:32 2016 -0500
+
+    Repository embedded queries now support simple include directives
+
+[33mcommit b53d8cece998084502423a0695553c44987ac3f4[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Wed Nov 30 16:19:51 2016 -0500
+
+    Extract embedded query method to a utility function
+
+[33mcommit c7658dba7c59ccdd2bd5888778d091893a6bf86d[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Wed Nov 30 16:14:35 2016 -0500
+
+    Fix a typo in a unit test (shouldn't affect results)
+
+[33mcommit 746c9e4ea968aabbeb3fdb2544a32212fbda9a4e[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Wed Nov 30 16:03:16 2016 -0500
+
+    Doc typo fixes
+
+[33mcommit 3d5b53224c6845ae955897bd35b50df746cee4c3[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Wed Nov 30 15:54:56 2016 -0500
+
+    Minor convience funcctions to shorten creating compossit ids
+
+[33mcommit 6f56a579b1f326f73d77158b61b6d997715ce682[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Wed Nov 30 15:41:20 2016 -0500
+
+    Documentation typo fix in CompositeId
+
+[33mcommit 537aa6abaf3d1d76fe5a969afdec45364e6889fa[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Nov 22 14:22:12 2016 -0500
+
+    Add some useful DateTimeOffset extensions
+
+[33mcommit 472b7fa5757b7594334364f53ef529b6124e55e6[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Nov 15 15:29:43 2016 -0500
+
+    Version 1.0.0-alpha16
+
+[33mcommit f3cfd54408ed595ddbd4f08541bb26670791413c[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Nov 15 15:28:52 2016 -0500
+
+    Fix a namespace for code that was copied
+
+[33mcommit 9f98cd799e920593fa90b46646b8d9a575725fbe[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Nov 15 15:28:34 2016 -0500
+
+    Exclude all unit tests from code coverage
+
+[33mcommit 9d5fbc12286c18e56e0478eaafda44f501abe1d6[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Nov 15 15:25:22 2016 -0500
+
+    Minify repository queries before caching them
+
+[33mcommit 05080b019b3eb92646df28a3f4e1b8dc270782e4[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Nov 7 18:15:51 2016 -0500
+
+    Version 1.0.0-alpha15
+
+[33mcommit 06937cac028fff5db900108fd37fb89aa96eb597[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Nov 7 18:14:05 2016 -0500
+
+    Add some unit tests
+
+[33mcommit 309ef224033b31a52087f7b48392ee187d99a856[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Nov 7 18:13:28 2016 -0500
+
+    Fix EnumerableExtensions namespace
+
+[33mcommit 457108d37609ada51b8bb326c2c155f186248ed8[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Nov 7 17:47:17 2016 -0500
+
+    Version 1.0.0-alpha14
+
+[33mcommit f2e1187818e79a4b488a53c302a3d458c382df99[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Nov 7 17:44:31 2016 -0500
+
+    Extensions to find min and max values in a enumerable in one iteration
+
+[33mcommit a41616329f977510bfb3cdc3e9e35794b2613417[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Nov 7 17:44:00 2016 -0500
+
+    Extension to count matching items and total items in an enumerable in one iteration
+
+[33mcommit 659df0b7bdfd9cb8d7541f3d43b81fa10852b489[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Nov 7 17:42:35 2016 -0500
+
+    Extensions to convert lookups to dictionaries and vice-versa
+
+[33mcommit b1828764199ac26f92dddcd2b7421bb99f040a5b[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Nov 7 17:41:58 2016 -0500
+
+    Minor doc fixes in LookupExtensions
+
+[33mcommit 8e7d82ababab2ed9f6233da160288f32f270e9b2[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Nov 7 12:00:37 2016 -0500
+
+    Adds a version of Concat(...) that prepends the added item
+
+[33mcommit 067d7430bda1e02ca244c81528b65e98beb2a4d2[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Nov 7 11:56:47 2016 -0500
+
+    Minor Concat(...) doc clarification
+
+[33mcommit e3f0a5530065771b47a3b4d9c616a8a671a11753[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Nov 7 11:56:14 2016 -0500
+
+    Rename AsEnumerable to InEnumerable to prevent namespace collisions
+
+[33mcommit 7179de375db68b5d64ec0b43159a6358073312ff[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Aug 30 17:11:25 2016 -0400
+
+    Adds structs for representing composite identifiers of 2 or three keys
+
+[33mcommit e2b9ea43883449243c2246246dc5ff1c0828bbdd[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Aug 30 17:09:48 2016 -0400
+
+    Model.Equals(object) method documentation improvement
+
+[33mcommit 9421ddc82413a12a54e89a54d21317896b1bb030[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Aug 30 17:09:05 2016 -0400
+
+    Remove unnecessary crap from the Model constructor
+
+[33mcommit cce60b71883b81fc12f42b9498805887b2c127f1[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Aug 30 17:08:30 2016 -0400
+
+    Adds Model unit tests
+
+[33mcommit 5f2fde35311ad28ff8f602ef576023d12c2ef311[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Aug 29 15:07:38 2016 -0400
+
+    Version 1.0.0-alpha13
+
+[33mcommit 3346113a16a9835c98c40d05d23ead75683f16d5[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Aug 29 15:05:34 2016 -0400
+
+    Adds get methods for 1, 2, and 3 dimensional lookups
+
+[33mcommit 80586fb183f5b81647796aaebccc16943613a6c6[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Aug 29 13:59:10 2016 -0400
+
+    Version 1.0.0-alpha12
+
+[33mcommit 88e513588d2c7321a6c956fd95b45f36b8625000[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Aug 29 12:01:40 2016 -0400
+
+    Code cleanup, docs, and some extension methods
+    
+    * Code cleanup
+    * Added missing docs (mostly to DistributingTextWriter)
+    * Lookup extensions for creating/using 2 and 3 item tuples as keys
+
+[33mcommit fad0f59e44f0b06b388342f74431f83ff661cfbb[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Aug 25 16:04:27 2016 -0400
+
+    Add extension methods to produce distinct lookups
+
+[33mcommit 8f435eadcf301ce7f6c2ee7c582fb1514a5078b6[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Aug 25 15:24:43 2016 -0400
+
+    Version 1.0.0-alpha11
+
+[33mcommit b7220d19565505464ebfcc8145b4be724510f1ab[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Aug 25 15:20:01 2016 -0400
+
+    Adds a lookup implementation that tracks the distinct set of objects in each group
+
+[33mcommit 70f52da4043103bbf50ebbf4eab5a5304cc263e6[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Thu Aug 25 15:18:43 2016 -0400
+
+    Reduce casting when adding to MutableLookup
+
+[33mcommit 0dcbd76d688ad55d2b1bf12ba3053abae6742204[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Wed Aug 24 17:51:45 2016 -0400
+
+    Version 1.0.0-alpha10
+
+[33mcommit 9cc98102392903840d8d143f2c6ccff8c3248260[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Wed Aug 24 17:50:05 2016 -0400
+
+    Add a dictionary extension to help unique-ify models by id
+
+[33mcommit afb8347cf93b110e06dded1d35ed59652d6ae2ed[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Aug 23 17:04:22 2016 -0400
+
+    Version 1.0.0-alpha9
+
+[33mcommit 0b965bbfee9f44af3419001d03ca373506e2a1b6[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Aug 23 17:02:48 2016 -0400
+
+    Adds a union types for unions between two or three types
+
+[33mcommit 602a58360ef6b4284510b55b50425cc550df49aa[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Tue Aug 23 15:52:12 2016 -0400
+
+    Repository enhancements
+    
+    * Add synchronous GetConnection()
+    * Support GetQuery() in base types
+
+[33mcommit 53ef5374993c50f205a8b5e626373c4daaf2e988[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Aug 22 15:18:42 2016 -0400
+
+    Build documentation file
+
+[33mcommit 95a9fc9026d8a17ddcbf3a3e7fdefc9633f8ae0a[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Aug 22 15:16:07 2016 -0400
+
+    Version 1.0.0-alpha8
+
+[33mcommit a143d2f4e13406df2d23e981205ec3f88ea9f0a1[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Aug 22 15:15:45 2016 -0400
+
+    Adds a mutable ILookup implementation
+
+[33mcommit a9ede6212cc346d73fbefa9ef958a4a0b7e426e5[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Fri Aug 19 10:23:22 2016 -0400
+
+    Version 1.0.0-alpha7
+
+[33mcommit 80f8037d55ab76ed225ac722125f59dc23312211[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Fri Aug 19 10:22:23 2016 -0400
+
+    Adds a TextWriter extension to print exceptions
+
+[33mcommit 839f6ec9c56f2789c28fa9e43b4abde44e7b32c2[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Fri Aug 19 10:21:50 2016 -0400
+
+    Adds a string extension to get the first line of a string
+
+[33mcommit c37b1f4fbe9f6c8284f4d212421aa4891ef9e582[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Aug 8 17:04:06 2016 -0400
+
+    increase version to 1.0.0-alpha6
+
+[33mcommit 1923a7ff424db67cc94b19db037e5ce572add2ae[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Aug 8 17:03:53 2016 -0400
+
+    Remove unnecessary references
+
+[33mcommit 3fe8e7dd96c863495407d3911b6e396af5a06b41[m
+Author: David Love <bungeemonkee@gmail.com>
+Date:   Mon Aug 8 17:02:31 2016 -0400
+
+    Adds an enumerable extension to partition a source enumerable
+
+[33mcommit 7e7bad34e7d544ae07e7cb0e6f7ae7a33036e261[m
+Author: David Love <David Love>
+Date:   Mon Aug 1 15:13:03 2016 -0400
+
+    Update version to 1.0.0-alpha5
+
+[33mcommit 38f3a8e4cd905918bd70ba103c20bd47026600c9[m
+Author: David Love <David Love>
+Date:   Mon Aug 1 15:05:58 2016 -0400
+
+    Adds GetOrDefault extensions for dictionaries and lookups
+
+[33mcommit 059c87dc9d54322759748ebc5404588cec69658f[m
+Author: David Love <David Love>
+Date:   Thu Jul 28 12:13:21 2016 -0400
+
+    Update version to 1.0.0-alpha4
+
+[33mcommit 33aafe117068f0cf1b48bceef6ed3ed1c2217d76[m
+Author: David Love <David Love>
+Date:   Thu Jul 28 12:12:34 2016 -0400
+
+    Fix a write line that wasn't synchronous but should have been
+
+[33mcommit 101452918358cac64394298c9c811979f6128319[m
+Author: David Love <David Love>
+Date:   Thu Jul 28 11:26:26 2016 -0400
+
+    Update version to 1.0.0-alpha3
+
+[33mcommit bd7cb67d99319a84d4c63d2f08db86b420a3e22b[m
+Author: David Love <David Love>
+Date:   Thu Jul 28 11:25:50 2016 -0400
+
+    Adds a string utility with a simple LevenshteinDistance function
+
+[33mcommit 4c877b3295bf830b69b38a566600c06f64f76db7[m
+Author: David Love <David Love>
+Date:   Thu Jul 28 11:24:04 2016 -0400
+
+    Adds a TextWriter that simply delegates to one or more other TextWriter instances
+
+[33mcommit 8a3bfe11fb9c9a1bd949c49a6453932ca1d2d5e5[m
+Author: David Love <David Love>
+Date:   Mon Jul 11 17:30:02 2016 -0400
+
+    Fix version number (alpha2)
+
+[33mcommit e94a6616c9d3b3aed196c2af8c8235f35de0680a[m
+Author: David Love <David Love>
+Date:   Mon Jul 11 17:25:22 2016 -0400
+
+    Alpha 2
+
+[33mcommit 5dcb25615ea6e431658a2883c40f1e7a1d22fd74[m
+Author: David Love <David Love>
+Date:   Mon Jul 11 17:23:48 2016 -0400
+
+    Adds enumerable methods:
+    
+    * IEnumerable<T> T.AsEnumerable<T>(T)
+    * IEnumerable<T> IEnumerable<T>.Concat(IEnumerable<T>, T)
+
+[33mcommit 568a9cb1f9d82f4377cd43b35abccc1260c04b24[m
+Author: David Love <David Love>
+Date:   Mon Jul 11 17:02:09 2016 -0400
+
+    Readme updates
+
+[33mcommit 32eacf695c7bcb0a323193c3b1e223608f0ed368[m
+Author: David Love <David Love>
+Date:   Sun Jul 3 16:32:28 2016 -0400
+
+    Setup AppVeyor and Coveralls
+
+[33mcommit e87234b1c2d9ff7383cdcb67873b0136082b3fcc[m
+Author: David Love <David Love>
+Date:   Thu Jun 30 12:31:07 2016 -0400
+
+    Alpha 1
+
+[33mcommit 6f350a46110ca44f59c880237c9a53c79b090033[m
+Author: David Love <bungeemonkee@users.noreply.github.com>
+Date:   Thu Jun 30 11:03:44 2016 -0400
+
+    Initial commit
