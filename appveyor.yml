@@ -18,7 +18,7 @@ environment:
 
 before_build:
 - cmd: >-
-    _build\version.bat Utilitron
+    _build\version.bat
     
     _build\restore.bat Utilitron
     
