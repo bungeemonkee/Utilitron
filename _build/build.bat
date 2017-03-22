@@ -2,7 +2,7 @@
 set scripts=%~dp0
 set scripts=%scripts:~0,-1%
 
-set solution=Utilitron.sln
+set solution=%1%.sln
 
 if not defined configuration set configuration=Release
 

@@ -3,6 +3,8 @@ init:
 
 version: '{branch}-{build}'
 
+image: Visual Studio 2017
+
 skip_tags: true
 
 configuration: Release
@@ -15,16 +17,19 @@ environment:
     secure: TuzfJo1wRIIoC/i5Oxa1tifRWgQ60loT0GbPjuircCeW5sH5uC714YWVJ02EXnVG
 
 before_build:
-- cmd: _build\restore.bat
+- cmd: >-
+    _build\version.bat Utilitron
+    
+    _build\restore.bat Utilitron
     
 build_script:
-- cmd: _build\build.bat
+- cmd: _build\build.bat Utilitron
 
 test_script:
-- cmd: _build\test.bat
+- cmd: _build\test.bat Utilitron
 
 after_test:
-- cmd: _build\package.bat
+- cmd: _build\package.bat Utilitron
 
 artifacts:
 - path: '*.nupkg'
