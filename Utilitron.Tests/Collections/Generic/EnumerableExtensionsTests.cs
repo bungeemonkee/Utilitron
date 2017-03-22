@@ -1,13 +1,12 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Utilitron.Collections.Generic;
 
-namespace Utilitron.Tests.Unit.Collections.Generic
+namespace Utilitron.Tests.Collections.Generic
 {
     [TestClass]
     //[ExcludeFromCodeCoverage]
