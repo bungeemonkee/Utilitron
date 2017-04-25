@@ -10,7 +10,7 @@ skip_tags: true
 configuration: Release
 platform: Any CPU
 
-shallow_clone: true
+shallow_clone: false
 
 environment:
   COVERALLS_REPO_TOKEN:
@@ -18,6 +18,8 @@ environment:
 
 before_build:
 - cmd: >-
+    git submodule update --init --recursive
+    
     _build\version.bat
     
     _build\restore.bat Utilitron
