@@ -130,14 +130,14 @@ namespace Utilitron.Data
             if (queryName == null)
                 throw new ArgumentNullException(nameof(queryName));
 
-            return Queries.GetOrAdd(queryName, GetQueryInternal);
+            var type = GetType();
+            var fullName = $"{type.FullName}.{queryName}";
+
+            return Queries.GetOrAdd(fullName, x => GetQueryInternal(queryName, type));
         }
 
-        private string GetQueryInternal(string queryName)
+        private static string GetQueryInternal(string queryName, Type type)
         {
-            // Get the current type
-            var type = GetType();
-
             // Get the query
             var query = QueryUtilities.GetEmbeddedQuery(queryName, type);
 
