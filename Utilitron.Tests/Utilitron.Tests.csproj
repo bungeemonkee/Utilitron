@@ -17,6 +17,7 @@
     <EmbeddedResource Include="Data\RepositoryAncestor1Queries\IncludeQueryOuter.sql" />
     <EmbeddedResource Include="Data\RepositoryAncestor1Queries\IncludeQueryRecursive.sql" />
     <EmbeddedResource Include="Data\RepositoryAncestor1Queries\QueryTest.sql" />
+    <EmbeddedResource Include="Data\_\UnderscoreRepositoryQueries\UnderscoreTest.sql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeCoverage" Version="1.0.2" />
