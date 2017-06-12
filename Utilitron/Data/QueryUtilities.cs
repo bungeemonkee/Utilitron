@@ -307,6 +307,9 @@ namespace Utilitron.Data
 
         private static string GetEmbeddedQueryText(string queryName, Assembly assembly)
         {
+            // Underscores in embedded resource names get escaped to double underscores for some reason
+            queryName = queryName.Replace("_", "__");
+
             using (var resource = assembly.GetManifestResourceStream(queryName))
             {
                 if (resource == null)
