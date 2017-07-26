@@ -13,8 +13,8 @@ namespace Utilitron.Data
     /// </summary>
     public abstract class Repository
     {
-        private static readonly ConcurrentDictionary<string, string> Queries =
-            new ConcurrentDictionary<string, string>();
+        private static readonly ConcurrentDictionary<string, string> Queries = new ConcurrentDictionary<string, string>();
+        private static readonly ConcurrentDictionary<string, string> QueriesRaw = new ConcurrentDictionary<string, string>();
 
         /// <summary>
         ///     The <see cref="IRepositoryConfiguration" /> for this repository.
@@ -124,7 +124,7 @@ namespace Utilitron.Data
         ///     minified once.
         /// </summary>
         /// <param name="queryName">The name of the query to get. This defaults to the calling method.</param>
-        /// <returns>The query text.</returns>
+        /// <returns>The query text (minified).</returns>
         protected string GetQuery([CallerMemberName] string queryName = null)
         {
             if (queryName == null)
@@ -132,17 +132,32 @@ namespace Utilitron.Data
 
             var type = GetType();
             var fullName = $"{type.FullName}.{queryName}";
+            
+            return Queries.GetOrAdd(fullName, x =>
+            {
+                var queryRaw = QueriesRaw.GetOrAdd(fullName, y => QueryUtilities.GetEmbeddedQuery(queryName, type));
 
-            return Queries.GetOrAdd(fullName, x => GetQueryInternal(queryName, type));
+                return QueryUtilities.Minify(queryRaw);
+            });
         }
 
-        private static string GetQueryInternal(string queryName, Type type)
+        /// <summary>
+        ///     Get the query text for the calling method.
+        ///     <see cref="QueryUtilities.GetEmbeddedQuery" /> for more details.
+        ///     The resulting query text is cached by each repository on a per-class basis so each query is only extracted and
+        ///     minified once.
+        /// </summary>
+        /// <param name="queryName">The name of the query to get. This defaults to the calling method.</param>
+        /// <returns>The query text (unminified).</returns>
+        protected string GetQueryRaw([CallerMemberName] string queryName = null)
         {
-            // Get the query
-            var query = QueryUtilities.GetEmbeddedQuery(queryName, type);
+            if (queryName == null)
+                throw new ArgumentNullException(nameof(queryName));
 
-            // minify and return the query
-            return QueryUtilities.Minify(query);
+            var type = GetType();
+            var fullName = $"{type.FullName}.{queryName}";
+            
+            return QueriesRaw.GetOrAdd(fullName, x => QueryUtilities.GetEmbeddedQuery(queryName, type));
         }
     }
 }
