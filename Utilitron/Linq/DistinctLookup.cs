@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Utilitron.Linq
+﻿namespace Utilitron.Linq
 {
     /// <summary>
     ///     See <see cref="IDistinctLookup{TKey,TValue}" />.
@@ -11,16 +7,6 @@ namespace Utilitron.Linq
     {
         private readonly IEqualityComparer<TValue> _valueComparer;
         private readonly IDictionary<TKey, DistinctGrouping> _values;
-
-        /// <summary>
-        ///     See <see cref="ILookup{TKey,TElement}.Count" />.
-        /// </summary>
-        public int Count => _values.Count;
-
-        /// <summary>
-        ///     See <see cref="ILookup{TKey,TElement}.this" />.
-        /// </summary>
-        public IEnumerable<TValue> this[TKey key] => _values[key];
 
         /// <summary>
         ///     Create a new DistinctLookup with a default <see cref="EqualityComparer{TKey}" /> and
@@ -42,6 +28,16 @@ namespace Utilitron.Linq
             _values = new Dictionary<TKey, DistinctGrouping>(keyComparer);
             _valueComparer = valueComparer;
         }
+
+        /// <summary>
+        ///     See <see cref="ILookup{TKey,TElement}.Count" />.
+        /// </summary>
+        public int Count => _values.Count;
+
+        /// <summary>
+        ///     See <see cref="ILookup{TKey,TElement}.this" />.
+        /// </summary>
+        public IEnumerable<TValue> this[TKey key] => _values[key];
 
         /// <summary>
         ///     See <see cref="IMutableLookup{TKey,TValue}.Add(TKey,TValue)" />.
@@ -72,6 +68,14 @@ namespace Utilitron.Linq
         public bool Contains(TKey key)
         {
             return _values.ContainsKey(key);
+        }
+
+        /// <summary>
+        ///     See <see cref="IMutableLookup{TKey,TValue}.Clear()" />.
+        /// </summary>
+        public void Clear()
+        {
+            _values.Clear();
         }
 
         /// <summary>
