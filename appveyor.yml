@@ -28,7 +28,7 @@ build_script:
 - cmd: _build\build.bat Utilitron
 
 test_script:
-- cmd: _build\test.bat Utilitron netstandard1.4
+- cmd: _build\test.bat Utilitron netcoreapp2.0
 
 after_test:
 - cmd: _build\package.bat Utilitron
