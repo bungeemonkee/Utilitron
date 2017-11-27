@@ -1,4 +1,6 @@
 ﻿using System.CodeDom.Compiler;
+using System.Data;
+using System.Threading.Tasks;
 using Utilitron.Data;
 
 namespace Utilitron.Tests.Data
@@ -14,6 +16,11 @@ namespace Utilitron.Tests.Data
         public string QueryTest()
         {
             return GetQuery();
+        }
+
+        protected override async Task<IDbConnection> GetConnectionAsync()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

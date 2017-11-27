@@ -1,4 +1,6 @@
 ﻿using System.CodeDom.Compiler;
+using System.Data;
+using System.Threading.Tasks;
 using Utilitron.Data;
 
 namespace Utilitron.Tests.Data._
@@ -14,6 +16,11 @@ namespace Utilitron.Tests.Data._
         public string UnderscoreTest()
         {
             return GetQuery();
+        }
+
+        protected override Task<IDbConnection> GetConnectionAsync()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
