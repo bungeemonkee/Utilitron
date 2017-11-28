@@ -9,7 +9,7 @@ namespace Utilitron.Data.Profiling
 
         public TimeSpan Duration => EndTime - StartTime;
 
-        public bool Success => Exception != null;
+        public bool Success => Exception == null;
 
         public ProfilingEventEndArgs(T item, DateTimeOffset startTime, DateTimeOffset endTime)
             : this(item, startTime, endTime, null)
