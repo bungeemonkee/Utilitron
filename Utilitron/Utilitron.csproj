@@ -9,13 +9,13 @@
     <PackageProjectUrl>https://github.com/bungeemonkee/Utilitron</PackageProjectUrl>
     <RepositoryUrl>https://github.com/bungeemonkee/Utilitron.git</RepositoryUrl>
     <PackageTags>Utilitron utilities extensions generic linq data io</PackageTags>
-    <Version>1.0.3</Version>
+    <Version>1.1.2-beta01</Version>
     <Authors>David Love</Authors>
     <Company />
     <Description>Basic .NET utilities.</Description>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>1.0.3.0</AssemblyVersion>
-    <FileVersion>1.0.3.0</FileVersion>
+    <AssemblyVersion>1.1.2.01</AssemblyVersion>
+    <FileVersion>1.1.2.01</FileVersion>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
