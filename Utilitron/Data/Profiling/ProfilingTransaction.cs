@@ -49,7 +49,7 @@ namespace Utilitron.Data.Profiling
 
         internal ProfilingTransaction(DbConnection connection, DbTransaction transaction)
         {
-            if (InnerTransaction == null)
+            if (transaction == null)
                 throw new ArgumentNullException(nameof(transaction));
 
             _connection = connection != null
