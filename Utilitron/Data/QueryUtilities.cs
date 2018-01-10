@@ -215,8 +215,15 @@ namespace Utilitron.Data
         /// <returns>The query text.</returns>
         public static string GetEmbeddedQuery(string queryName, Type repositoryType)
         {
+            const BindingFlags flags = BindingFlags.Public
+                | BindingFlags.NonPublic
+                | BindingFlags.Instance
+                | BindingFlags.Static
+                | BindingFlags.FlattenHierarchy;
+
+
             // Get the member that matches this query
-            var member = repositoryType.GetMethod(queryName);
+            var member = repositoryType.GetMethod(queryName, flags);
 
             // Use the type that actually declared the member or the current type if it is not available
             repositoryType = member?.DeclaringType ?? repositoryType;

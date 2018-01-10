@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Data;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -116,6 +117,7 @@ namespace Utilitron.Data
                 throw new ArgumentNullException(nameof(queryName));
 
             var type = GetType();
+
             var fullName = $"{type.FullName}.{queryName}";
 
             return Queries.GetOrAdd(fullName, x =>

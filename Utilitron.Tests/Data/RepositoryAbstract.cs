@@ -7,9 +7,9 @@ namespace Utilitron.Tests.Data
 {
     //[ExcludeFromCodeCoverage]
     [GeneratedCode("Testing", "")] // TODO: .NET Core won't have [ExcludeFromCodeCoverage] until 2.0 so this is temporary
-    public class RepositoryAncestor1 : Repository
+    public abstract class RepositoryAbstract : Repository
     {
-        public RepositoryAncestor1(IRepositoryConfiguration configuration) : base(configuration)
+        protected RepositoryAbstract(IRepositoryConfiguration configuration) : base(configuration)
         {
         }
 
@@ -17,6 +17,8 @@ namespace Utilitron.Tests.Data
         {
             return GetQuery();
         }
+
+        public abstract string QueryTestAbstract();
 
         protected override async Task<IDbConnection> GetConnectionAsync()
         {
