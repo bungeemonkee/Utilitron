@@ -83,17 +83,17 @@ from Bananas
 ";
 
             const string expected = @"before first include
-/* Utilitron.Include: ./../RepositoryAncestor1Queries/IncludeQueryInner.sql */
+/* Utilitron.Include: ./../RepositoryAncestorQueries/IncludeQueryInner.sql */
 include query
 after first include
 before second include
-/* Utilitron.Include: /Utilitron/Tests/Data/RepositoryAncestor1Queries/IncludeQueryInner.sql */
+/* Utilitron.Include: /Utilitron/Tests/Data/RepositoryAncestorQueries/IncludeQueryInner.sql */
 include query
 after second include";
 
             if (Environment.NewLine != newline) Assert.Inconclusive($"Environment.NewLine is not {string.Join(string.Empty, newline.Select(x => ((int) x).ToString("X4")))}.");
 
-            var result = QueryUtilities.GetEmbeddedQuery("IncludeQueryOuter", typeof(RepositoryAncestor1));
+            var result = QueryUtilities.GetEmbeddedQuery("IncludeQueryOuter", typeof(RepositoryAncestor));
 
             Assert.AreEqual(expected, result);
         }
@@ -102,7 +102,7 @@ after second include";
         [ExpectedException(typeof(InvalidOperationException))]
         public void GetEmbeddedQuery_Throws_InvalidOperationException_If_Includes_Become_Recursive()
         {
-            QueryUtilities.GetEmbeddedQuery("IncludeQueryRecursive", typeof(RepositoryAncestor1));
+            QueryUtilities.GetEmbeddedQuery("IncludeQueryRecursive", typeof(RepositoryAncestor));
         }
     }
 }

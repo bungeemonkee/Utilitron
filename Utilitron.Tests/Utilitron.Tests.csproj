@@ -7,16 +7,13 @@
     <EmbeddedResource Include="**\*.resx" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Data\RepositoryAncestor1Queries\IncludeQueryInner.sql" />
-    <None Remove="Data\RepositoryAncestor1Queries\IncludeQueryOuter.sql" />
-    <None Remove="Data\RepositoryAncestor1Queries\IncludeQueryRecursive.sql" />
-    <None Remove="Data\RepositoryAncestor1Queries\QueryTest.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Data\RepositoryAncestor1Queries\IncludeQueryInner.sql" />
-    <EmbeddedResource Include="Data\RepositoryAncestor1Queries\IncludeQueryOuter.sql" />
-    <EmbeddedResource Include="Data\RepositoryAncestor1Queries\IncludeQueryRecursive.sql" />
-    <EmbeddedResource Include="Data\RepositoryAncestor1Queries\QueryTest.sql" />
+    <EmbeddedResource Include="Data\Repository2Queries\QueryTestAbstract.sql" />
+    <EmbeddedResource Include="Data\RepositoryAncestorQueries\QueryTestProtected.sql" />
+    <EmbeddedResource Include="Data\RepositoryAbstractQueries\QueryTest.sql" />
+    <EmbeddedResource Include="Data\RepositoryAncestorQueries\IncludeQueryInner.sql" />
+    <EmbeddedResource Include="Data\RepositoryAncestorQueries\IncludeQueryOuter.sql" />
+    <EmbeddedResource Include="Data\RepositoryAncestorQueries\IncludeQueryRecursive.sql" />
+    <EmbeddedResource Include="Data\RepositoryAncestorQueries\QueryTest.sql" />
     <EmbeddedResource Include="Data\_\UnderscoreRepositoryQueries\UnderscoreTest.sql" />
   </ItemGroup>
   <ItemGroup>
