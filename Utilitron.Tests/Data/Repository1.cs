@@ -15,5 +15,10 @@ namespace Utilitron.Tests.Data
         {
             return QueryTestProtected();
         }
+
+        public string QueryTest(string overloaded)
+        {
+            return GetQuery();
+        }
     }
 }
