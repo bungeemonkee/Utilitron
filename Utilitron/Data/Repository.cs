@@ -105,10 +105,12 @@ namespace Utilitron.Data
 
         /// <summary>
         ///     Get the query text for the calling method.
+        /// </summary>
+        /// <remarks>
         ///     <see cref="QueryUtilities.GetEmbeddedQuery" /> and <see cref="QueryUtilities.Minify" /> for more details.
         ///     The resulting query text is cached by each repository on a per-class basis so each query is only extracted and
         ///     minified once.
-        /// </summary>
+        /// </remarks>
         /// <param name="queryName">The name of the query to get. This defaults to the calling method.</param>
         /// <returns>The query text (minified).</returns>
         protected string GetQuery([CallerMemberName] string queryName = null)
