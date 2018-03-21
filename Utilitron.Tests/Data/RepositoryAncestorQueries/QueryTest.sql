@@ -1,1 +1,1 @@
-﻿QueryTest
+QueryTest

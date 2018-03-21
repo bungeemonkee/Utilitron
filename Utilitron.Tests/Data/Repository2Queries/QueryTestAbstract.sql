@@ -1,1 +1,1 @@
-﻿QueryTestAbstract
+QueryTestAbstract

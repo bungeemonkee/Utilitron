@@ -1,1 +1,1 @@
-﻿QueryTest2
+QueryTest2

@@ -1,1 +1,1 @@
-﻿QueryTestProtected
+QueryTestProtected

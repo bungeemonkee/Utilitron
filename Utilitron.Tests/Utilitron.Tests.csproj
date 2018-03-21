@@ -8,6 +8,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Data\Repository2Queries\QueryTestAbstract.sql" />
+    <EmbeddedResource Include="Data\RepositoryAncestorQueries\Utf8Bom.sql" />
     <EmbeddedResource Include="Data\RepositoryAncestorQueries\QueryTestProtected.sql" />
     <EmbeddedResource Include="Data\RepositoryAbstractQueries\QueryTest.sql" />
     <EmbeddedResource Include="Data\RepositoryAncestorQueries\IncludeQueryInner.sql" />

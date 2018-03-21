@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Linq;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Utilitron.Data;
 
@@ -103,6 +104,19 @@ after second include";
         public void GetEmbeddedQuery_Throws_InvalidOperationException_If_Includes_Become_Recursive()
         {
             QueryUtilities.GetEmbeddedQuery("IncludeQueryRecursive", typeof(RepositoryAncestor));
+        }
+
+        [TestMethod]
+        public void GetEmbeddedQuery_Strips_UTF8_BOM()
+        {
+            const string expected = "UTF8BOM";
+
+            var utf8Bom = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+
+            var result = QueryUtilities.GetEmbeddedQuery("Utf8Bom", typeof(RepositoryAncestor));
+
+            Assert.IsFalse(result.StartsWith(utf8Bom, StringComparison.Ordinal));
+            Assert.AreEqual(expected, result);
         }
     }
 }

@@ -1,1 +1,1 @@
-﻿/* Utilitron.Include: IncludeQueryRecursive.sql */
+/* Utilitron.Include: IncludeQueryRecursive.sql */

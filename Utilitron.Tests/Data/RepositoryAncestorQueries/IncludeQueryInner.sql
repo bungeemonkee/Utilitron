@@ -1,1 +1,1 @@
-﻿include query
+include query

@@ -1,4 +1,4 @@
-﻿before first include
+before first include
 /* Utilitron.Include: ./../RepositoryAncestorQueries/IncludeQueryInner.sql */
 after first include
 before second include

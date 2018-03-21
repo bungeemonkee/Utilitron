@@ -17,6 +17,8 @@ namespace Utilitron.Data
         private const char Dash = '-';
         private const char Slash = '/';
 
+        private static  readonly string ByteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+
         private static readonly char[] IncludePathSplitters =
         {
             '/',
@@ -284,9 +286,14 @@ namespace Utilitron.Data
                 if (resource == null)
                     throw new InvalidOperationException($"No embedded query for {queryName}.");
 
-                using (var text = new StreamReader(resource, Encoding.UTF8, true))
+                using (var stream = new StreamReader(resource, Encoding.UTF8, true))
                 {
-                    return text.ReadToEnd();
+                    var text = stream.ReadToEnd();
+
+                    // Remove any UTF8 BOM from this string because SQL server doesn't like them
+                    return text.StartsWith(ByteOrderMarkUtf8, StringComparison.Ordinal)
+                        ? text.Substring(ByteOrderMarkUtf8.Length)
+                        : text;
                 }
             }
         }
