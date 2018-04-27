@@ -115,6 +115,11 @@ namespace Utilitron.Data.Profiling
             if (!disposing)
                 return;
 
+            TransactionCommitEnd.Deregister();
+            TransactionCommitStart.Deregister();
+            TransactionRollbackEnd.Deregister();
+            TransactionRollbackStart.Deregister();
+
             InnerTransaction.Dispose();
         }
 

@@ -232,6 +232,8 @@ namespace Utilitron.Data.Profiling
 
             endTime = DateTimeOffset.Now;
             OnCommandExecuteEnd(startTime, endTime);
+
+            CommandExecuteEnd.Deregister();
         }
 
         /// <inheritdoc />

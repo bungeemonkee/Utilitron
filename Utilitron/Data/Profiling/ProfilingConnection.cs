@@ -224,6 +224,19 @@ namespace Utilitron.Data.Profiling
             if (!disposing)
                 return;
 
+            CommandCreateEnd.Deregister();
+            CommandExecuteEnd.Deregister();
+            CommandExecuteStart.Deregister();
+            ConnectionCloseEnd.Deregister();
+            ConnectionCloseStart.Deregister();
+            ConnectionOpenEnd.Deregister();
+            ConnectionOpenStart.Deregister();
+            TransactionBeginEnd.Deregister();
+            TransactionCommitEnd.Deregister();
+            TransactionCommitStart.Deregister();
+            TransactionRollbackEnd.Deregister();
+            TransactionRollbackStart.Deregister();
+
             if (InnerConnection.State != ConnectionState.Closed)
                 Close();
 

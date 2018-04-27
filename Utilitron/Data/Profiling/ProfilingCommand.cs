@@ -264,8 +264,13 @@ namespace Utilitron.Data.Profiling
         {
             base.Dispose(disposing);
 
-            if (disposing)
-                _command.Dispose();
+            if (!disposing)
+                return;
+            
+            CommandExecuteStart.Deregister();
+            CommandExecuteEnd.Deregister();
+
+            _command.Dispose();
         }
 
         /// <inheritdoc />
