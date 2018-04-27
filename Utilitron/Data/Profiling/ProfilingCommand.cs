@@ -12,7 +12,7 @@ namespace Utilitron.Data.Profiling
     public class ProfilingCommand: DbCommand
     {
         /// <summary>
-        ///     Event fired when the <see cref="DbCommand" /> finished ecxecuting a query either successfully or due to failure.
+        ///     Event fired when the <see cref="DbCommand" /> finished executing a query either successfully or due to failure.
         /// </summary>
         public event EventHandler<ProfilingEventEndArgs<DbCommand>> CommandExecuteEnd;
 
@@ -289,8 +289,9 @@ namespace Utilitron.Data.Profiling
                 throw;
             }
 
-            endTime = DateTimeOffset.UtcNow;
-            OnCommandExecuteEnd(startTime, endTime);
+            // Allow the reader to handle the command end event
+            result = new ProfilingDataReader(result, startTime);
+            ((ProfilingDataReader)result).CommandExecuteEnd += OnCommandExecuteEnd;
 
             return result;
         }
@@ -316,10 +317,18 @@ namespace Utilitron.Data.Profiling
                 throw;
             }
 
-            endTime = DateTimeOffset.UtcNow;
-            OnCommandExecuteEnd(startTime, endTime);
+            // Allow the reader to handle the command end event
+            result = new ProfilingDataReader(result, startTime);
+            ((ProfilingDataReader)result).CommandExecuteEnd += OnCommandExecuteEnd;
 
             return result;
+        }
+
+        private void OnCommandExecuteEnd(object sender, ProfilingEventEndArgs<DbCommand> args)
+        {
+            args = new ProfilingEventEndArgs<DbCommand>(_command, args.StartTime, args.EndTime, args.Exception);
+
+            CommandExecuteEnd?.Invoke(this, args);
         }
 
         private void OnCommandExecuteEnd(DateTimeOffset startTime, DateTimeOffset endTime)
