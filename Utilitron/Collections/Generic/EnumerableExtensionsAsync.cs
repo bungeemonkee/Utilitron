@@ -102,5 +102,23 @@ namespace Utilitron.Collections.Generic
             var enumerable = await enumerableTask;
             return enumerable.ToArray();
         }
+
+        /// <summary>
+        /// Calls <see cref="Enumerable.ToDictionary"/> after await-ing for an enumerable.
+        /// </summary>
+        public static async Task<IDictionary<TKey, T>> ToDictionary<T, TKey>(this Task<IEnumerable<T>> enumerableTask, Func<T, TKey> keySelector)
+        {
+            var enumerable = await enumerableTask;
+            return enumerable.ToDictionary(keySelector);
+        }
+
+        /// <summary>
+        /// Calls <see cref="Enumerable.ToDictionary"/> after await-ing for an enumerable.
+        /// </summary>
+        public static async Task<IDictionary<TKey, TValue>> ToDictionary<T, TKey, TValue>(this Task<IEnumerable<T>> enumerableTask, Func<T, TKey> keySelector, Func<T, TValue> valueSelector)
+        {
+            var enumerable = await enumerableTask;
+            return enumerable.ToDictionary(keySelector, valueSelector);
+        }
     }
 }
