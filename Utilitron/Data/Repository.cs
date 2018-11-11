@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -120,13 +122,57 @@ namespace Utilitron.Data
 
             var type = GetType();
 
-            var fullName = $"{type.FullName}.{queryName}";
+            var fullName = $"{type.FullName}.{queryName}()";
 
             return Queries.GetOrAdd(fullName, x =>
             {
-                var queryRaw = QueriesRaw.GetOrAdd(fullName, y => QueryUtilities.GetEmbeddedQuery(queryName, type));
+                var q1 = QueriesRaw.GetOrAdd(fullName, y =>
+                {
+                    var q2 = QueryUtilities.GetEmbeddedQuery(queryName, type);
 
-                return QueryUtilities.Minify(queryRaw);
+                    var preprocessorFlags = new Dictionary<string, bool>();
+
+                    return QueryUtilities.Preprocess(preprocessorFlags, q2);
+                });
+
+                return QueryUtilities.Minify(q1);
+            });
+        }
+
+        /// <summary>
+        ///     Get the query text for the calling method.
+        /// </summary>
+        /// <remarks>
+        ///     <see cref="QueryUtilities.GetEmbeddedQuery" />, <see cref="QueryUtilities.Preprocess"/> and <see cref="QueryUtilities.Minify" /> for more details.
+        ///     The resulting query text is cached by each repository on a per-class basis so each query is only extracted and
+        ///     minified once.
+        /// </remarks>
+        /// <param name="preprocessorFlags">A dictionary of named booleans necessary if using any preprocessor directives.</param>
+        /// <param name="queryName">The name of the query to get. This defaults to the calling method.</param>
+        /// <returns>The query text (minified).</returns>
+        protected string GetQuery(IDictionary<string, bool> preprocessorFlags, [CallerMemberName] string queryName = null)
+        {
+            if (preprocessorFlags == null)
+                throw new ArgumentNullException(nameof(queryName));
+
+            if (queryName == null)
+                throw new ArgumentNullException(nameof(queryName));
+
+            var type = GetType();
+
+            var flagsKey = GetPreProcessorIdentifier(preprocessorFlags);
+            var fullName = $"{type.FullName}.{queryName}({flagsKey})";
+
+            return Queries.GetOrAdd(fullName, x =>
+            {
+                var q1 = QueriesRaw.GetOrAdd(fullName, y =>
+                {
+                    var q2 = QueryUtilities.GetEmbeddedQuery(queryName, type);
+
+                    return QueryUtilities.Preprocess(preprocessorFlags, q2);
+                });
+
+                return QueryUtilities.Minify(q1);
             });
         }
 
@@ -144,9 +190,53 @@ namespace Utilitron.Data
                 throw new ArgumentNullException(nameof(queryName));
 
             var type = GetType();
-            var fullName = $"{type.FullName}.{queryName}";
+            var fullName = $"{type.FullName}.{queryName}()";
 
-            return QueriesRaw.GetOrAdd(fullName, x => QueryUtilities.GetEmbeddedQuery(queryName, type));
+            return QueriesRaw.GetOrAdd(fullName, x =>
+            {
+                var q = QueryUtilities.GetEmbeddedQuery(queryName, type);
+
+                var preprocessorFlags = new Dictionary<string, bool>();
+
+                return QueryUtilities.Preprocess(preprocessorFlags, q);
+            });
+        }
+
+        /// <summary>
+        ///     Get the query text for the calling method.
+        ///     <see cref="QueryUtilities.GetEmbeddedQuery" /> and <see cref="QueryUtilities.Preprocess"/> for more details.
+        ///     The resulting query text is cached by each repository on a per-class basis so each query is only extracted and
+        ///     minified once.
+        /// </summary>
+        /// <param name="preprocessorFlags">A dictionary of named booleans necessary if using any preprocessor directives.</param>
+        /// <param name="queryName">The name of the query to get. This defaults to the calling method.</param>
+        /// <returns>The query text (unminified).</returns>
+        protected string GetQueryRaw(IDictionary<string, bool> preprocessorFlags, [CallerMemberName] string queryName = null)
+        {
+            if (preprocessorFlags == null)
+                throw new ArgumentNullException(nameof(queryName));
+
+            if (queryName == null)
+                throw new ArgumentNullException(nameof(queryName));
+
+            var type = GetType();
+            var flagsKey = GetPreProcessorIdentifier(preprocessorFlags);
+            var fullName = $"{type.FullName}.{queryName}({flagsKey})";
+
+            return QueriesRaw.GetOrAdd(fullName, x =>
+            {
+                var q = QueryUtilities.GetEmbeddedQuery(queryName, type);
+
+                return QueryUtilities.Preprocess(preprocessorFlags, q);
+            });
+        }
+
+        private static string GetPreProcessorIdentifier(IDictionary<string, bool> preprocessorFlags)
+        {
+            var strings = preprocessorFlags.OrderBy(x => x.Key)
+                .Select(x => $"{x.Key}:{(x.Value ? "1" : "0")}");
+
+            return string.Join(",", strings);
         }
     }
 }

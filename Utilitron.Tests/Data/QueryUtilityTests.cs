@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -116,6 +117,86 @@ after second include";
             var result = QueryUtilities.GetEmbeddedQuery("Utf8Bom", typeof(RepositoryAncestor));
 
             Assert.IsFalse(result.StartsWith(utf8Bom, StringComparison.Ordinal));
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void Preprocess_Removes_False_Value()
+        {
+            const string query = @"
+select *
+/* Utilitron.If: testFlag */
+this text should be removed
+/* Utilitron.EndIf */
+from Bananas
+";
+            const string expected = @"
+select *
+/* Utilitron.If: testFlag *//* Utilitron.EndIf */
+from Bananas
+";
+
+            var flags = new Dictionary<string, bool>
+            {
+                { "testFlag", false },
+            };
+
+            var result = QueryUtilities.Preprocess(flags, query);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        public void Preprocess_Keeps_True_Value()
+        {
+            const string query = @"
+select *
+/* Utilitron.If: testFlag */
+this text should not be removed
+/* Utilitron.EndIf */
+from Bananas
+";
+            const string expected = @"
+select *
+/* Utilitron.If: testFlag */
+this text should not be removed
+/* Utilitron.EndIf */
+from Bananas
+";
+
+            var flags = new Dictionary<string, bool>
+            {
+                { "testFlag", true },
+            };
+
+            var result = QueryUtilities.Preprocess(flags, query);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Preprocess_Throws_InvlaidOperationException_If_Missing_Flag()
+        {
+            const string query = @"
+select *
+/* Utilitron.If: testFlag */
+this text should not be removed
+/* Utilitron.EndIf */
+from Bananas
+";
+            const string expected = @"
+select *
+/* Utilitron.If: testFlag */
+this text should not be removed
+/* Utilitron.EndIf */
+from Bananas
+";
+
+            var flags = new Dictionary<string, bool>();
+
+            var result = QueryUtilities.Preprocess(flags, query);
+
             Assert.AreEqual(expected, result);
         }
     }

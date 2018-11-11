@@ -25,7 +25,8 @@ namespace Utilitron.Data
             '\\'
         };
 
-        private static readonly Regex IncludeRegex = new Regex(@"/\*\s+Utilitron\.Include:\s+([0-9a-zA-Z/\\\.]+\.sql)\s+\*/");
+        private static readonly Regex RegexInclude = new Regex(@"/\*\s+Utilitron\.Include:\s+([0-9a-zA-Z/\\\.]+\.sql)\s+\*/");
+        private static readonly Regex RegexIf = new Regex(@"/\*\s+Utilitron\.If:\s+([0-9a-zA-Z/\\\.]+)\s+\*/(.+?)/\*\s+Utilitron\.EndIf\s+\*/", RegexOptions.Singleline);
 
         // See: https://msdn.microsoft.com/en-us/library/t809ektx(v=vs.110).aspx
         private static readonly char[] NewLines =
@@ -276,6 +277,65 @@ namespace Utilitron.Data
             return sb.ToString();
         }
 
+        /// <summary>
+        ///     A simple query preprocessor function.
+        /// </summary>
+        /// <remarks>
+        ///     <list type="bullet">
+        ///         <listheader>
+        ///             This function does three things:
+        ///         </listheader>
+        ///         <item>
+        ///             Remove duplicate newlines.
+        ///         </item>
+        ///         <item>
+        ///             Remove leading whitespace.
+        ///         </item>
+        ///         <item>
+        ///             Remove comments.
+        ///         </item>
+        ///     </list>
+        ///     Note: This function is not cheap and does not cache its results.
+        ///     Note: This function does not properly handle nested preprocessor directives.
+        /// </remarks>
+        /// <param name="preprocessorFlags">The preprocessor flags.</param>
+        /// <param name="query">The query to process.</param>
+        /// <returns>The query with any text surrounded by 'false' preprocessor flags removed.</returns>
+        public static string Preprocess(IDictionary<string, bool> preprocessorFlags, string query)
+        {
+            // Process any if statements in the query
+            return RegexIf.Replace(query, match =>
+            {
+                // Get the name of the preprocessor directive
+                var flagName = match.Groups[1]
+                    .Value;
+
+                // Make sure the directive exists
+                if (!preprocessorFlags.ContainsKey(flagName))
+                {
+                    throw new InvalidOperationException($"No defined preprocessor flag named '{flagName}'");
+                }
+
+                var flagValue = preprocessorFlags[flagName];
+                if (flagValue)
+                {
+                    // Include the query, which just means return the original match
+                    return match.Value;
+                }
+
+                // Get the second match group
+                var matchSql = match.Groups[2];
+
+                // Don't include the query
+                // Which means replace the match with the match minus the second capture group
+                var start1 = 0;
+                var length1 = matchSql.Index - match.Index;
+                var start2 = length1 + matchSql.Length;
+                var length2 = match.Length - start2;
+                return match.Value.Substring(start1, length1) + match.Value.Substring(start2, length2);
+            });
+        }
+
         private static string GetEmbeddedQueryText(string queryName, Assembly assembly)
         {
             // Underscores in embedded resource names get escaped to double underscores for some reason
@@ -365,7 +425,7 @@ namespace Utilitron.Data
         private static string ProcessQueryIncludes(string query, string queryName, Assembly assembly, IEnumerable<string> previousParents)
         {
             // Process any include statements in the query
-            return IncludeRegex.Replace(query, match => ProcessQueryIncludeMatch(match, queryName, assembly, new HashSet<string>(previousParents)));
+            return RegexInclude.Replace(query, match => ProcessQueryIncludeMatch(match, queryName, assembly, new HashSet<string>(previousParents)));
         }
     }
 }
